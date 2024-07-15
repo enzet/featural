@@ -1,0 +1,38 @@
+voiceless              hc
+voiced                 .
+labial                 vl
+linguolabial           vlo
+alveolar               vc
+dental                 vcsd
+postalveolar           vl vr
+retroflex              vc2
+palatal                vr
+palatal2               vr
+velar                  /
+uvular                 \
+pharyngeal/epiglottal  vc vr
+glottal                vro
+nasal                  hto
+plosive/stop           ht
+sibilant_affricate     ht hbo
+non-sibilant_affricate ht hb
+sibilant_fricative     hbo
+non-sibilant_fricative hb
+approximant            hc
+tap/flap               hc2
+trill                  ht hbs
+lateral_affricate      hti hbi
+lateral_fricative      hbi
+lateral_approximant    hti
+lateral_tap/flap       hto hbo
+click_tenuis           htI
+click_voiced           hbI
+click_nasal            htO
+click_tenuis_lateral   htI2
+click_voiced_lateral   hbI2
+click_nasal_lateral    htO2
+implosive              htO hbO
+ejective_plosive/stop  ht2
+ejective_fricative     hb2
+ejective_affricate     ht2 hb2
+ejective_lateral       hb hbi
