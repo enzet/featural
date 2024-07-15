@@ -64,58 +64,93 @@ public:
     }
 };
 
-void tikzLine(Vector center, float size, Vector point1, Vector point2) {
+class Painter {
 
-    Vector p1 = center + point1 * size;
-    Vector p2 = center + point2 * size;
+public:
+    virtual void end() = 0;
+    virtual std::string getString() = 0;
 
-    std::cout << "\\draw[line cap=round] (" << p1.x << ", " << p1.y << ") -- "
-              << "(" << p2.x << ", " << p2.y << ");" << std::endl;
-}
+    virtual void line(Vector point1, Vector point2, std::string settings) = 0;
+    virtual void curve(
+        Vector point1,
+        Vector point2,
+        Vector point3,
+        Vector point4,
+        std::string settings)
+        = 0;
+    virtual void text(Vector center, std::string text, std::string settings)
+        = 0;
+    virtual void rectangle(Vector point1, Vector point2, std::string settings)
+        = 0;
+};
 
-void tikzLine(
-    Vector center,
-    float size,
-    Vector point1,
-    Vector point2,
-    std::string settings) {
+/*
+ * Wrapper for drawing Tikz elements.
+ */
+class TikzPainter : public Painter {
 
-    Vector p1 = center + point1 * size;
-    Vector p2 = center + point2 * size;
+    /* Output stream. */
+    std::stringstream stream;
 
-    std::cout << "\\draw[" << settings << "] (" << p1.x << ", " << p1.y
-              << ") -- " << "(" << p2.x << ", " << p2.y << ");" << std::endl;
-}
+public:
+    TikzPainter() {
+        stream << "\\documentclass[tikz]{standalone}" << std::endl;
 
-void tikzCurve(
-    Vector center,
-    float size,
-    Vector point1,
-    Vector point2,
-    Vector point3,
-    Vector point4) {
+        stream << "\\usepackage[T2A]{fontenc}" << std::endl;
+        stream << "\\usepackage[utf8]{inputenc}" << std::endl;
+        stream << "\\usepackage{tikz}" << std::endl;
+        stream << "\\usepackage{fontspec}" << std::endl;
+        stream << "\\setmainfont{Doulos SIL}" << std::endl;
+        stream << "\\usetikzlibrary{positioning}" << std::endl;
 
-    Vector p1 = center + point1 * size;
-    Vector p2 = center + point2 * size;
-    Vector p3 = center + point3 * size;
-    Vector p4 = center + point4 * size;
+        stream << "\\begin{document}" << std::endl;
+        stream << "\\begin{tikzpicture}" << std::endl;
+    }
 
-    std::cout << "\\draw[line cap=round] (" << p1.x << ", " << p1.y << ") .. "
-              << "controls (" << p2.x << ", " << p2.y << ") "
-              << "and (" << p3.x << ", " << p3.y << ") .. "
-              << "(" << p4.x << ", " << p4.y << ");" << std::endl;
-}
+    std::string getString() {
+        return stream.str();
+    };
 
-void tikzText(Vector center, std::string text, std::string settings) {
-    std::cout << "\\node[" << settings << "] at (" << center.x << ", "
-              << center.y << ") {" << text << "};" << std::endl;
-}
+    void end() {
+        stream << "\\end{tikzpicture}" << std::endl;
+        stream << "\\end{document}" << std::endl;
+    }
 
-void tikzRectangle(Vector point1, Vector point2, std::string settings) {
-    std::cout << "\\draw[" << settings << "] (" << point1.x << ", " << point1.y
-              << ") rectangle (" << point2.x << ", " << point2.y << ");"
-              << std::endl;
-}
+    /* Draw line between two points. */
+    void line(Vector point1, Vector point2, std::string settings) {
+
+        stream << "\\draw[" << settings << "] (" << point1.x << ", " << point1.y
+               << ") -- " << "(" << point2.x << ", " << point2.y << ");"
+               << std::endl;
+    }
+
+    /* Draw cubic Bezier curve (with 2 control points). */
+    void curve(
+        Vector point1,
+        Vector point2,
+        Vector point3,
+        Vector point4,
+        std::string settings) {
+
+        stream << "\\draw[" << settings << "] (" << point1.x << ", " << point1.y
+               << ") .. " << "controls (" << point2.x << ", " << point2.y
+               << ") " << "and (" << point3.x << ", " << point3.y << ") .. "
+               << "(" << point4.x << ", " << point4.y << ");" << std::endl;
+    }
+
+    /* Draw text. */
+    void text(Vector center, std::string text, std::string settings) {
+        stream << "\\node[" << settings << "] at (" << center.x << ", "
+               << center.y << ") {" << text << "};" << std::endl;
+    }
+
+    /* Draw axes aligned rectangle. */
+    void rectangle(Vector point1, Vector point2, std::string settings) {
+        stream << "\\draw[" << settings << "] (" << point1.x << ", " << point1.y
+               << ") rectangle (" << point2.x << ", " << point2.y << ");"
+               << std::endl;
+    }
+};
 
 /*
  * Describes a graphical element: how and where to draw it.
@@ -244,7 +279,11 @@ public:
     }
 
     void draw(
-        Vector center, float size, Vector step, std::vector<Element> elements) {
+        Painter* painter,
+        Vector center,
+        float size,
+        Vector step,
+        std::vector<Element> elements) {
 
         Vector a = getNorm();
         Vector b = direction;
@@ -259,7 +298,8 @@ public:
             // Line.
             Vector start = step + b * (1 - CURVE_SIZE);
             Vector end = step - b * (1 - CURVE_SIZE);
-            tikzLine(center, size, start, end);
+            painter->line(
+                center + start * size, center + end * size, "line cap=round");
 
             // Curve.
             Vector p = step + b;
@@ -267,7 +307,12 @@ public:
             Vector p2 = p - b * CURVE_SIZE * (1 - CURVATURE);
             Vector p3 = p + (a * CURVE_SIZE * (1 - CURVATURE)) * m;
             Vector p4 = p + (a * CURVE_SIZE) * m;
-            tikzCurve(center, size, p1, p2, p3, p4);
+            painter->curve(
+                center + p1 * size,
+                center + p2 * size,
+                center + p3 * size,
+                center + p4 * size,
+                "line cap=round");
 
             // Curve.
             p = step - b;
@@ -275,7 +320,12 @@ public:
             p2 = p + b * CURVE_SIZE * (1 - CURVATURE);
             p3 = p + (a * CURVE_SIZE * (1 - CURVATURE)) * m;
             p4 = p + (a * CURVE_SIZE) * m;
-            tikzCurve(center, size, p1, p2, p3, p4);
+            painter->curve(
+                center + p1 * size,
+                center + p2 * size,
+                center + p3 * size,
+                center + p4 * size,
+                "line cap=round");
 
         } else if (isPointed) {
 
@@ -345,24 +395,38 @@ public:
                     }
                 }
             }
-            tikzCurve(center, size, p1, p2, p3, p4);
+            painter->curve(
+                center + p1 * size,
+                center + p2 * size,
+                center + p3 * size,
+                center + p4 * size,
+                "line cap=round");
         }
     }
 
     /*
      * Draw symbol element.
      */
-    void draw(Vector center, float size, std::vector<Element> elements) {
+    void draw(
+        Painter* painter,
+        Vector center,
+        float size,
+        std::vector<Element> elements) {
 
         Vector step = getNorm() * 0.5f;
 
         if (this->isDouble and position == 0) {
-            draw(center, size, getNorm() * 0.3f, elements);
-            draw(center, size, getNorm() * -1 * 0.3f, elements);
+            draw(painter, center, size, getNorm() * 0.3f, elements);
+            draw(painter, center, size, getNorm() * -1 * 0.3f, elements);
         } else {
-            draw(center, size, getNorm() * 1.0f, elements);
+            draw(painter, center, size, getNorm() * 1.0f, elements);
             if (this->isDouble) {
-                draw(center, size, getNorm() * (1 - DOUBLE_SIZE), elements);
+                draw(
+                    painter,
+                    center,
+                    size,
+                    getNorm() * (1 - DOUBLE_SIZE),
+                    elements);
             }
         }
     }
@@ -382,10 +446,10 @@ public:
         elements.push_back(element);
     }
 
-    void draw(Vector center, float size) {
+    void draw(Painter* painter, Vector center, float size) {
 
         for (Element element : elements) {
-            element.draw(center, size, elements);
+            element.draw(painter, center, size, elements);
         }
     }
 };
@@ -462,19 +526,22 @@ parseGraphs(const std::string& path) {
 }
 
 void drawTikz(
-    std::string ipaSymbol, std::vector<std::string> reprs, Vector center) {
+    Painter* painter,
+    std::string ipaSymbol,
+    std::vector<std::string> reprs,
+    Vector center) {
 
     bool hasIpaSymbol
         = (ipaSymbol != "-" and ipaSymbol != "=" and ipaSymbol != "*");
 
     if (hasIpaSymbol) {
-        tikzRectangle(
+        painter->rectangle(
             center + Vector(-0.8, 0.25),
             center + Vector(0.2, -0.25),
             "draw=black");
-        tikzText(center - Vector(0.8, 0), ipaSymbol, "anchor=west");
+        painter->text(center - Vector(0.8, 0), ipaSymbol, "anchor=west");
     } else {
-        tikzRectangle(
+        painter->rectangle(
             center + Vector(-0.8, 0.25),
             center + Vector(0.2, -0.25),
             "draw=black, fill=yellow!20");
@@ -495,27 +562,14 @@ void drawTikz(
         symbol.add(element);
     }
     float size = 0.1f;
-    symbol.draw(center, size);
-
-    std::cout << std::endl;
+    symbol.draw(painter, center, size);
 }
 
 void parseConsonants(
     const std::string& path,
     std::unordered_map<std::string, std::vector<std::string>> graphs) {
 
-    std::cout << "\\documentclass[tikz]{standalone}" << std::endl;
-
-    std::cout << "\\usepackage[T2A]{fontenc}" << std::endl;
-    std::cout << "\\usepackage[utf8]{inputenc}" << std::endl;
-    std::cout << "\\usepackage{tikz}" << std::endl;
-    std::cout << "\\usepackage{fontspec}" << std::endl;
-    std::cout << "\\setmainfont{Doulos SIL}" << std::endl;
-    std::cout << "\\usetikzlibrary{positioning}" << std::endl;
-
-    std::cout << "\\begin{document}" << std::endl;
-
-    std::cout << "\\begin{tikzpicture}" << std::endl;
+    Painter* painter = new TikzPainter();
 
     std::ifstream inFile(path);
 
@@ -535,7 +589,7 @@ void parseConsonants(
     for (int i = 0; i < headers.size(); i++) {
         std::string tex = std::regex_replace(headers[i], std::regex("_"), " ");
         tex = std::regex_replace(tex, std::regex(";"), ", ");
-        tikzText(
+        painter->text(
             Vector(x - 0.5, y + 0.5),
             "{\\fontfamily{cmr}\\selectfont " + tex + "}",
             "anchor=west, rotate=30");
@@ -550,7 +604,7 @@ void parseConsonants(
 
         std::string tex = std::regex_replace(row[0], std::regex("_"), " ");
         tex = std::regex_replace(tex, std::regex(";"), ", ");
-        tikzText(
+        painter->text(
             Vector(x - 6, y),
             "{\\fontfamily{cmr}\\selectfont " + tex + "}",
             "anchor=west");
@@ -579,14 +633,15 @@ void parseConsonants(
                     std::cerr << " Unknown name <" << name << ">" << std::endl;
                 }
             }
-            drawTikz(ipaSymbol, descriptors, Vector(x, y));
+            drawTikz(painter, ipaSymbol, descriptors, Vector(x, y));
             x += 1;
         }
         y -= 0.5;
         x = 0;
     }
-    std::cout << "\\end{tikzpicture}" << std::endl;
-    std::cout << "\\end{document}" << std::endl;
+    painter->end();
+
+    std::cout << painter->getString();
 }
 
 int main(int argc, char** argv) {
