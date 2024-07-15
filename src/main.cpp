@@ -1,6 +1,3 @@
-/*
- * Language project entry point.
- */
 #include <fstream>
 #include <iostream>
 #include <regex>
@@ -150,22 +147,6 @@ enum class ElementDescriptor {
     Unknown
 };
 
-class Modifier {
-
-public:
-    Vector point;
-    Vector direction;
-    bool toCurve;
-    bool toShift;
-
-    Modifier(Vector point, Vector direction, bool toCurve, bool toShift) {
-        this->point = point;
-        this->direction = direction;
-        this->toCurve = toCurve;
-        this->toShift = toShift;
-    }
-};
-
 /*
  * Symbol element.
  *
@@ -262,52 +243,8 @@ public:
         }
     }
 
-    void fillModifiers(std::vector<Modifier>* modifiers) {
-
-        if (isCurved and isInwards) {
-            modifiers->push_back(Modifier(
-                getNorm() + direction,
-                getNorm() * -1 * CURVE_SIZE,
-                true,
-                false));
-            modifiers->push_back(Modifier(
-                getNorm() - direction,
-                getNorm() * -1 * CURVE_SIZE,
-                true,
-                false));
-        }
-        if (isCurved and not isInwards) {
-            modifiers->push_back(Modifier(
-                getNorm() + direction,
-                getNorm() * -1 * CURVE_SIZE,
-                true,
-                true));
-            modifiers->push_back(Modifier(
-                getNorm() - direction,
-                getNorm() * -1 * CURVE_SIZE,
-                true,
-                true));
-        }
-        if (isDouble) {
-            modifiers->push_back(Modifier(
-                getNorm() + direction,
-                getNorm() * -1 * DOUBLE_SIZE,
-                false,
-                true));
-            modifiers->push_back(Modifier(
-                getNorm() - direction,
-                getNorm() * -1 * DOUBLE_SIZE,
-                false,
-                true));
-        }
-    }
-
     void draw(
-        Vector center,
-        float size,
-        Vector step,
-        std::vector<Modifier> modifiers,
-        std::vector<Element> elements) {
+        Vector center, float size, Vector step, std::vector<Element> elements) {
 
         Vector a = getNorm();
         Vector b = direction;
@@ -348,22 +285,6 @@ public:
             Vector p2 = step + b; // Curve point 1.
             Vector p3 = step - b; // Curve point 2.
             Vector p4 = step - b; // End point.
-
-            /*
-            for (Modifier modifier : modifiers) {
-                if (modifier.toShift) {
-                    if (isParallel(getNorm(), modifier.direction)) {
-                        continue;
-                    }
-                    if (p1 == modifier.point) {
-                        p1 = p1 + modifier.direction;
-                    }
-                    if (p2 == modifier.point) {
-                        p2 = p2 + modifier.direction;
-                    }
-                }
-            }
-            */
 
             // Check other elements.
             // TODO: ignore the element itself.
@@ -431,26 +352,17 @@ public:
     /*
      * Draw symbol element.
      */
-    void draw(
-        Vector center,
-        float size,
-        std::vector<Modifier> modifiers,
-        std::vector<Element> elements) {
+    void draw(Vector center, float size, std::vector<Element> elements) {
 
         Vector step = getNorm() * 0.5f;
 
         if (this->isDouble and position == 0) {
-            draw(center, size, getNorm() * 0.3f, modifiers, elements);
-            draw(center, size, getNorm() * -1 * 0.3f, modifiers, elements);
+            draw(center, size, getNorm() * 0.3f, elements);
+            draw(center, size, getNorm() * -1 * 0.3f, elements);
         } else {
-            draw(center, size, getNorm() * 1.0f, modifiers, elements);
+            draw(center, size, getNorm() * 1.0f, elements);
             if (this->isDouble) {
-                draw(
-                    center,
-                    size,
-                    getNorm() * (1 - DOUBLE_SIZE),
-                    modifiers,
-                    elements);
+                draw(center, size, getNorm() * (1 - DOUBLE_SIZE), elements);
             }
         }
     }
@@ -464,31 +376,17 @@ public:
 class Symbol {
 
     std::vector<Element> elements;
-    std::vector<Modifier> modifiers;
 
 public:
     void add(Element element) {
-        element.fillModifiers(&modifiers);
         elements.push_back(element);
     }
 
     void draw(Vector center, float size) {
 
         for (Element element : elements) {
-            element.draw(center, size, modifiers, elements);
+            element.draw(center, size, elements);
         }
-        /*
-        for (Modifier modifier : modifiers) {
-            if (modifier.toCurve) {
-                tikzLine(center, size, modifier.point,
-                    modifier.point + modifier.direction * 0.5, "draw=red");
-            }
-            if (modifier.toShift) {
-                tikzLine(center, size, modifier.point,
-                    modifier.point + modifier.direction * 0.5, "draw=blue");
-            }
-        }
-        */
     }
 };
 
@@ -617,9 +515,7 @@ void parseConsonants(
 
     std::cout << "\\begin{document}" << std::endl;
 
-    std::cout
-        << "\\begin{tikzpicture}[every text node part/.style={align=center}]"
-        << std::endl;
+    std::cout << "\\begin{tikzpicture}" << std::endl;
 
     std::ifstream inFile(path);
 
@@ -694,10 +590,10 @@ void parseConsonants(
 }
 
 int main(int argc, char** argv) {
+
     std::unordered_map<std::string, std::vector<std::string>> graphs
         = parseGraphs("../data/graphs.txt");
     parseConsonants("../data/consonants.txt", graphs);
 
-    std::cout << "Conversion completed successfully!" << std::endl;
     return 0;
 }
