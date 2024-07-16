@@ -346,7 +346,21 @@ public:
                     and element.position != 0) {
 
                     // Shift point.
-                    if (element.getNorm().isGridCodirectedTo(direction)) {
+                    if (isDiagonal) {
+                        if (element.getPoint1() == p1
+                            or element.getPoint2() == p1) {
+
+                            p1 = p1 + element.getNorm() * -DOUBLE_SIZE;
+                            p2 = p2 + element.getNorm() * -DOUBLE_SIZE;
+                        }
+                        if (element.getPoint1() == p4
+                            or element.getPoint2() == p4) {
+
+                            p4 = p4 + element.getNorm() * -DOUBLE_SIZE;
+                            p3 = p3 + element.getNorm() * -DOUBLE_SIZE;
+                        }
+                    } else if (element.getNorm().isGridCodirectedTo(
+                                   direction)) {
                         p1 = p1 - direction * DOUBLE_SIZE;
                         p2 = p2 - direction * DOUBLE_SIZE;
                     } else {
