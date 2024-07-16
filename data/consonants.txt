@@ -1,8 +1,8 @@
 labial labial;dental linguolabial dental alveolar postalveolar retroflex palatal velar uvular pharyngeal/epiglottal glottal alveolar;palatal2
-nasal;voiceless                  m̥  -   -   -   n̥   -   ɳ̊   ɲ̊   ŋ̊   -   -  -  -
-nasal;voiced                     m  ɱ   n̼   -   n   -   ɳ   ɲ   ŋ   ɴ   -  -  mʲ
-plosive/stop;voiceless           p  p̪   t̼   -   t   -   ʈ   c   k   q   ʡ  ʔ  tʲ
-plosive/stop;voiced              b  b̪   d̼   -   d   -   ɖ   ɟ   ɡ   ɢ   -  -  dʲ
+nasal;voiceless                  m̥  -   -   -   n̥   -   ɳ̊   ɲ̊   ŋ̊   ɴ̥   -  -  -
+nasal;voiced                     m  ɱ   n̼   n̪   n   -   ɳ   ɲ;ȵ ŋ   ɴ   -  -  mʲ
+plosive/stop;voiceless           p  p̪   t̼   t̪   t   -   ʈ   c   k   q   ʡ  ʔ  tʲ;ȶ
+plosive/stop;voiced              b  b̪   d̼   d̪   d   -   ɖ   ɟ   ɡ   ɢ   -  -  dʲ
 sibilant_affricate;voiceless     -  -   -   -   ts  t̠ʃ  tʂ  tɕ  -   -   -  -  -
 sibilant_affricate;voiced        -  -   -   -   dz  d̠ʒ  dʐ  dʑ  -   -   -  -  -
 non-sibilant_affricate;voiceless pɸ p̪f  -   t̪θ  tɹ̝̊  t̠ɹ̠̊˔ -   cç  kx  qχ  ʡʜ ʔh pʲ
