@@ -1,29 +1,29 @@
 labial labial;dental linguolabial dental alveolar postalveolar retroflex palatal velar uvular pharyngeal/epiglottal glottal alveolar;palatal2
-nasal;voiceless                  m̥  -   -   -   n̥   -   ɳ̊   ɲ̊   ŋ̊   ɴ̥   -  -  -
-nasal;voiced                     m  ɱ   n̼   n̪   n   -   ɳ   ɲ;ȵ ŋ   ɴ   -  -  mʲ
+nasal;voiceless                  m̥  -   -   -   n̥   -   ɳ̊   ɲ̊   ŋ̊   ɴ̥   =  =  -
+nasal;voiced                     m  ɱ   n̼   n̪   n   -   ɳ   ɲ;ȵ ŋ   ɴ   =  =  mʲ
 plosive/stop;voiceless           p  p̪   t̼   t̪   t   -   ʈ   c   k   q   ʡ  ʔ  tʲ;ȶ
-plosive/stop;voiced              b  b̪   d̼   d̪   d   -   ɖ   ɟ   ɡ   ɢ   -  -  dʲ
-sibilant_affricate;voiceless     -  -   -   -   ts  t̠ʃ  tʂ  tɕ  -   -   -  -  -
-sibilant_affricate;voiced        -  -   -   -   dz  d̠ʒ  dʐ  dʑ  -   -   -  -  -
+plosive/stop;voiced              b  b̪   d̼   d̪   d   -   ɖ   ɟ   ɡ   ɢ   =  =  dʲ
+sibilant_affricate;voiceless     =  =   =   -   ts  t̠ʃ  tʂ  tɕ  =   =   =  =  -
+sibilant_affricate;voiced        =  =   =   -   dz  d̠ʒ  dʐ  dʑ  =   =   =  =  -
 non-sibilant_affricate;voiceless pɸ p̪f  -   t̪θ  tɹ̝̊  t̠ɹ̠̊˔ -   cç  kx  qχ  ʡʜ ʔh pʲ
 non-sibilant_affricate;voiced    bβ b̪v  -   d̪ð  dɹ̝  d̠ɹ̠˔ -   ɟʝ  ɡɣ  ɢʁ  ʡʢ -  bʲ
-sibilant_fricative;voiceless     -  -   -   -   s   ʃ   ʂ   ɕ   -   -   -  -  sʲ
-sibilant_fricative;voiced        -  -   -   -   z   ʒ   ʐ   ʑ   -   -   -  -  zʲ
+sibilant_fricative;voiceless     =  =   =   -   s   ʃ   ʂ   ɕ   =   =   =  =  sʲ
+sibilant_fricative;voiced        =  =   =   -   z   ʒ   ʐ   ʑ   =   =   =  =  zʲ
 non-sibilant_fricative;voiceless ɸ  f   θ̼   θ   θ̠   ɹ̠̊˔  ɻ̊˔  ç   x   χ   ħ  h  -  
 non-sibilant_fricative;voiced    β  v   ð̼   ð   ð̠   ɹ̠˔  ɻ˔  ʝ   ɣ   ʁ   ʕ  ɦ  - 
 approximant;voiced               -  ʋ   -   -   ɹ   -   ɻ   j   ɰ   -   -  ʔ̞  ɹʲ
-tap/flap;voiceless               -  -   -   -   ɾ̥   -   ɽ̊   -   -   -   -  -  -
-tap/flap;voiced                  ⱱ̟  ⱱ   ɾ̼   -   ɾ   -   ɽ   -   -   ɢ̆   ʡ̆  -  ɾʲ
-trill;voiceless                  ʙ̥  -   -   -   r̥   -   ɽ̊r̥  -   -   ʀ̥   ʜ  -  -
-trill;voiced                     ʙ  -   -   -   r   -   ɽr  -   -   ʀ   ʢ  -  rʲ
-lateral_affricate;voiceless      -  -   -   -   tɬ  -   tꞎ  c𝼆  k𝼄  -   -  -  -
-lateral_affricate;voiced         -  -   -   -   dɮ  -   d𝼅  ɟʎ̝  ɡʟ̝  -   -  -  -
-lateral_fricative;voiceless      -  -   -   -   ɬ   -   ꞎ   𝼆   𝼄   -   -  -  ɬʲ
-lateral_fricative;voiced         -  -   -   -   ɮ   -   𝼅   ʎ̝   ʟ̝   -   -  -  -
-lateral_approximant;voiceless    -  -   -   -   -   -   -   -   -   -   -  -  -
-lateral_approximant;voiced       -  -   -   -   l   -   ɭ   ʎ   ʟ   ʟ̠   -  -  lʲ
-lateral_tap/flap;voiceless       -  -   -   -   ɺ̥   -   𝼈̥   -   -   -   -  -  -
-lateral_tap/flap;voiced          -  -   -   -   ɺ   -   𝼈   ʎ̆   ʟ̆   -   -  -  -
+tap/flap;voiceless               -  -   -   -   ɾ̥   -   ɽ̊   -   =   -   -  =  -
+tap/flap;voiced                  ⱱ̟  ⱱ   ɾ̼   -   ɾ   -   ɽ   -   =   ɢ̆   ʡ̆  =  ɾʲ
+trill;voiceless                  ʙ̥  -   -   -   r̥   -   ɽ̊r̥  -   =   ʀ̥   ʜ  =  -
+trill;voiced                     ʙ  -   -   -   r   -   ɽr  -   =   ʀ   ʢ  =  rʲ
+lateral_affricate;voiceless      =  =   -   -   tɬ  -   tꞎ  c𝼆  k𝼄  -   =  =  -
+lateral_affricate;voiced         =  =   -   -   dɮ  -   d𝼅  ɟʎ̝  ɡʟ̝  -   =  =  -
+lateral_fricative;voiceless      =  =   -   -   ɬ   -   ꞎ   𝼆   𝼄   -   =  =  ɬʲ
+lateral_fricative;voiced         =  =   -   -   ɮ   -   𝼅   ʎ̝   ʟ̝   -   =  =  -
+lateral_approximant;voiceless    =  =   -   -   -   -   -   -   -   -   =  =  -
+lateral_approximant;voiced       =  =   -   -   l   -   ɭ   ʎ   ʟ   ʟ̠   =  =  lʲ
+lateral_tap/flap;voiceless       =  =   -   -   ɺ̥   -   𝼈̥   -   -   -   =  =  -
+lateral_tap/flap;voiced          =  =   -   -   ɺ   -   𝼈   ʎ̆   ʟ̆   -   =  =  -
 click_tenuis;velar               kʘ -   -   kǀ  k!  -   k𝼊  kǂ  -   -   -  -  -
 click_tenuis;uvular              qʘ -   -   qǀ  q!  -   q𝼊  qǂ  -   -   -  -  -
 click_voiced;velar               ɡʘ -   -   ɡǀ  ɡ!  -   ɡ𝼊  ɡǂ  -   -   -  -  -
