@@ -545,8 +545,8 @@ void drawTikz(
     std::vector<std::string> reprs,
     Vector center) {
 
-    bool hasIpaSymbol
-        = (ipaSymbol != "-" and ipaSymbol != "=" and ipaSymbol != "*");
+    bool hasIpaSymbol = ipaSymbol != "-" and ipaSymbol != "=";
+    bool isImpossible = ipaSymbol == "=";
 
     if (hasIpaSymbol) {
         painter->rectangle(
@@ -554,11 +554,17 @@ void drawTikz(
             center + Vector(0.2, -0.25),
             "draw=black");
         painter->text(center - Vector(0.8, 0), ipaSymbol, "anchor=west");
+    } else if (isImpossible) {
+        painter->rectangle(
+            center + Vector(-0.8, 0.25),
+            center + Vector(0.2, -0.25),
+            "draw=black, fill=yellow!30");
+        return;
     } else {
         painter->rectangle(
             center + Vector(-0.8, 0.25),
             center + Vector(0.2, -0.25),
-            "draw=black, fill=yellow!20");
+            "draw=black, fill=yellow!15");
     }
 
     Symbol symbol = Symbol();
