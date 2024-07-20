@@ -524,8 +524,7 @@ parseGraphs(const std::string& path) {
     std::ifstream inFile(path);
 
     if (not inFile.is_open()) {
-        std::cerr << "Could not open the file " << path << "." << std::endl;
-        return graphs;
+        throw std::invalid_argument("Could not open the file " + path + ".");
     }
 
     std::string line;
@@ -594,8 +593,7 @@ void parseConsonants(
     std::ifstream inFile(path);
 
     if (not inFile.is_open()) {
-        std::cerr << "Could not open the file " << path << "." << std::endl;
-        return;
+        throw std::invalid_argument("Could not open the file " + path + ".");
     }
 
     std::string line;
@@ -650,7 +648,7 @@ void parseConsonants(
                         }
                     }
                 } else {
-                    std::cerr << " Unknown name <" << name << ">" << std::endl;
+                    std::cerr << "Unknown name <" << name << ">" << std::endl;
                 }
             }
             drawTikz(painter, ipaSymbol, descriptors, Vector(x, y));
@@ -666,9 +664,15 @@ void parseConsonants(
 
 int main(int argc, char** argv) {
 
-    std::unordered_map<std::string, std::vector<std::string>> graphs
-        = parseGraphs("../data/graphs.txt");
-    parseConsonants("../data/consonants.txt", graphs);
+    try {
+        std::unordered_map<std::string, std::vector<std::string>> graphs
+            = parseGraphs("../data/graphs.txt");
+        parseConsonants("../data/consonants.txt", graphs);
+
+    } catch (const std::exception& e) {
+        std::cerr << e.what() << std::endl;
+        return 1;
+    }
 
     return 0;
 }
