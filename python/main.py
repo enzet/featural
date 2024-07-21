@@ -4,13 +4,13 @@ from collections import defaultdict
 
 def parse(path: Path) -> None:
     with path.open() as input_file:
-        line = input_file.readline()
-        all_phonemes = set()
-        all_allophones = set()
-        languages = set()
+        line: str = input_file.readline()
+        all_phonemes: set[str] = set()
+        all_allophones: set[str] = set()
+        languages: set[str] = set()
 
-        phoneme_languages = defaultdict(set)
-        allophone_languages = defaultdict(set)
+        phoneme_languages: dict[str, set[str]] = defaultdict(set)
+        allophone_languages: dict[str, set[str]] = defaultdict(set)
 
         while line := input_file.readline():
             fields: list[str] = []
@@ -68,4 +68,4 @@ def parse(path: Path) -> None:
 
 
 if __name__ == "__main__":
-    parse(Path("../data/phoible.csv"))
+    parse(Path("data/phoible.csv"))

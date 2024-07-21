@@ -666,8 +666,8 @@ int main(int argc, char** argv) {
 
     try {
         std::unordered_map<std::string, std::vector<std::string>> graphs
-            = parseGraphs("../data/graphs.txt");
-        parseConsonants("../data/consonants.txt", graphs);
+            = parseGraphs("data/graphs.txt");
+        parseConsonants("data/consonants.txt", graphs);
 
     } catch (const std::exception& e) {
         std::cerr << e.what() << std::endl;
