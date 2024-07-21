@@ -10,6 +10,6 @@ cd ${BUILD_DIRECTORY}
 cmake ..
 make -j4
 cd ..
-mkdir out
+mkdir -p out
 build/language > out/main.tex
 xelatex -output-directory out out/main.tex
