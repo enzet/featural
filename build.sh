@@ -2,14 +2,22 @@
 
 BUILD_DIRECTORY="build"
 
+# Stop on error.
 set -e
 
+# Check code style.
+clang-format --dry-run --Werror src/main.cpp
+black --check --line-length 80 python/main.py
+
+# Configure C++ code.
 rm -rf ${BUILD_DIRECTORY}
 mkdir ${BUILD_DIRECTORY}
 cmake . -B ${BUILD_DIRECTORY}
-cd ${BUILD_DIRECTORY}
-make -j4
-cd ..
+
+# Build C++ code into a `language` executable.
+cmake --build build
+
+# Construct TeX file.
 mkdir -p out
 build/language > out/main.tex
 xelatex -output-directory out out/main.tex
