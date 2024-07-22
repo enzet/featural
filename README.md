@@ -10,9 +10,10 @@ Goals:
 
 Requirements:
 
-  * `xelatex` compiler ([XeTeX](https://tug.org/xetex/)),
   * C++20 compiler,
-  * CMake version 3.30 or higher.
+  * CMake version 3.30 or higher,
+  * `xelatex` compiler ([XeTeX](https://tug.org/xetex/)),
+  * [Doulos SIL](https://software.sil.org/doulos/download/) font.
 
 To get a PDF file with the alphabet, run
 

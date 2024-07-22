@@ -100,7 +100,7 @@ public:
         stream << "\\usepackage[utf8]{inputenc}" << std::endl;
         stream << "\\usepackage{tikz}" << std::endl;
         stream << "\\usepackage{fontspec}" << std::endl;
-        stream << "\\setmainfont{Doulos SIL}" << std::endl;
+        stream << "\\newfontface\\doulos{Doulos SIL}" << std::endl;
         stream << "\\usetikzlibrary{positioning}" << std::endl;
 
         stream << "\\begin{document}" << std::endl;
@@ -552,7 +552,10 @@ void drawTikz(
             center + Vector(-0.8, 0.25),
             center + Vector(0.2, -0.25),
             "draw=black");
-        painter->text(center - Vector(0.8, 0), ipaSymbol, "anchor=west");
+        painter->text(
+            center - Vector(0.8, 0),
+            "\\doulos{" + ipaSymbol + "}",
+            "anchor=west");
     } else if (isImpossible) {
         painter->rectangle(
             center + Vector(-0.8, 0.25),
@@ -607,10 +610,7 @@ void parseConsonants(
     for (unsigned i = 0; i < headers.size(); i++) {
         std::string tex = std::regex_replace(headers[i], std::regex("_"), " ");
         tex = std::regex_replace(tex, std::regex(";"), ", ");
-        painter->text(
-            Vector(x - 0.5, y + 0.5),
-            "{\\fontfamily{cmr}\\selectfont " + tex + "}",
-            "anchor=west, rotate=30");
+        painter->text(Vector(x - 0.5, y + 0.5), tex, "anchor=west, rotate=30");
         x += 1;
     }
     x = 0.0f;
@@ -622,10 +622,7 @@ void parseConsonants(
 
         std::string tex = std::regex_replace(row[0], std::regex("_"), " ");
         tex = std::regex_replace(tex, std::regex(";"), ", ");
-        painter->text(
-            Vector(x - 6, y),
-            "{\\fontfamily{cmr}\\selectfont " + tex + "}",
-            "anchor=west");
+        painter->text(Vector(x - 6, y), tex, "anchor=west");
 
         for (unsigned i = 1; i < row.size(); i++) {
 
