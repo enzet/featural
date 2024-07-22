@@ -17,3 +17,8 @@ jobs:
       with:
         source-dir: .
         build-dir: build
+    - name: Create TeX file
+      run: |
+        mkdir out
+        build/language > out/ipa.tex
+        cp data/*.tex out/
