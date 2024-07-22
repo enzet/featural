@@ -94,16 +94,6 @@ class TikzPainter : public Painter {
 
 public:
     TikzPainter() {
-        stream << "\\documentclass[tikz]{standalone}" << std::endl;
-
-        stream << "\\usepackage[T2A]{fontenc}" << std::endl;
-        stream << "\\usepackage[utf8]{inputenc}" << std::endl;
-        stream << "\\usepackage{tikz}" << std::endl;
-        stream << "\\usepackage{fontspec}" << std::endl;
-        stream << "\\newfontface\\doulos{Doulos SIL}" << std::endl;
-        stream << "\\usetikzlibrary{positioning}" << std::endl;
-
-        stream << "\\begin{document}" << std::endl;
         stream << "\\begin{tikzpicture}" << std::endl;
     }
 
@@ -113,7 +103,6 @@ public:
 
     void end() {
         stream << "\\end{tikzpicture}" << std::endl;
-        stream << "\\end{document}" << std::endl;
     }
 
     /* Draw line between two points. */
