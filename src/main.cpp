@@ -275,6 +275,8 @@ public:
         case ElementDescriptor::PointedOutwards:
             isPointed = true;
             break;
+        default:
+            break;
         }
     }
 
@@ -427,8 +429,6 @@ public:
         float size,
         std::vector<Element> elements) {
 
-        Vector step = getNorm() * 0.5f;
-
         if (this->isDouble and position == 0) {
             draw(painter, center, size, getNorm() * 0.3f, elements);
             draw(painter, center, size, getNorm() * -1 * 0.3f, elements);
@@ -568,7 +568,7 @@ void drawTikz(
 
     Symbol symbol = Symbol();
 
-    for (int i = 0; i < reprs.size(); i++) {
+    for (unsigned i = 0; i < reprs.size(); i++) {
         std::string repr = reprs[i];
 
         Element element = Element();
@@ -604,7 +604,7 @@ void parseConsonants(
     float x = 0.0f;
     float y = 0.0f;
 
-    for (int i = 0; i < headers.size(); i++) {
+    for (unsigned i = 0; i < headers.size(); i++) {
         std::string tex = std::regex_replace(headers[i], std::regex("_"), " ");
         tex = std::regex_replace(tex, std::regex(";"), ", ");
         painter->text(
@@ -627,7 +627,7 @@ void parseConsonants(
             "{\\fontfamily{cmr}\\selectfont " + tex + "}",
             "anchor=west");
 
-        for (int i = 1; i < row.size(); i++) {
+        for (unsigned i = 1; i < row.size(); i++) {
 
             std::string ipaSymbol = row[i];
 
@@ -638,10 +638,10 @@ void parseConsonants(
 
             std::vector<std::string> descriptors;
 
-            for (int j = 0; j < names.size(); j++) {
+            for (unsigned j = 0; j < names.size(); j++) {
                 std::string name = names[j];
                 if (graphs.contains(name)) {
-                    for (int k = 0; k < graphs[name].size(); k++) {
+                    for (unsigned k = 0; k < graphs[name].size(); k++) {
                         std::string descriptor = graphs[name][k];
                         if (descriptor != ".") {
                             descriptors.push_back(graphs[name][k]);
