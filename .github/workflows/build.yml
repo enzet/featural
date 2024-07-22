@@ -22,3 +22,15 @@ jobs:
         mkdir out
         build/language > out/ipa.tex
         cp data/*.tex out/
+    - name: Construct `table.pdf`
+      uses: xu-cheng/latex-action@v3
+      with:
+        working_directory: out
+        root_file: table.tex
+        latexmk_use_xelatex: true
+    - name: Construct `text.pdf`
+      uses: xu-cheng/latex-action@v3
+      with:
+        working_directory: out
+        root_file: text.tex
+        latexmk_use_xelatex: true
