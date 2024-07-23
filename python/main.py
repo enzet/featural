@@ -2,8 +2,14 @@ from pathlib import Path
 from collections import defaultdict
 
 
-def parse(path: Path) -> None:
-    with path.open() as input_file:
+def parse(input_path: Path, output_path: Path) -> None:
+    """Parse PHOIBLE data and write phoneme frequency.
+
+    Input file is a PHOIBLE CSV file with usage of phonemes and allophones in
+    different languages. Output file is a space-separated data with phoneme, its
+    frequency as a phoneme, and its frequency as an allophone.
+    """
+    with input_path.open() as input_file:
         line: str = input_file.readline()
         all_phonemes: set[str] = set()
         all_allophones: set[str] = set()
@@ -43,29 +49,26 @@ def parse(path: Path) -> None:
                 allophone_languages[allophone].add(language)
                 all_allophones.add(allophone)
 
-        print("Phonemes:", len(all_phonemes))
-        print("Allophones:", len(all_allophones))
+    sorted_phonemes: list[str] = sorted(
+        phoneme_languages.keys(), key=lambda x: -len(phoneme_languages[x])
+    )
+    len_languages: int = len(languages)
 
-        print("Languages with phoneme:")
-        print(
-            [
-                (a, f"{len(b) / len(languages) * 100:.2f}%")
-                for a, b in sorted(
-                    list(phoneme_languages.items()), key=lambda x: -len(x[1])
-                )[:10]
-            ]
-        )
+    with output_path.open("w") as output_file:
+        for phoneme in sorted_phonemes:
+            percentage_phonemes: float = (
+                len(phoneme_languages[phoneme]) / len_languages
+            )
 
-        print("Languages with allophone:")
-        print(
-            [
-                (a, f"{len(b) / len(languages) * 100:.2f}%")
-                for a, b in sorted(
-                    list(allophone_languages.items()), key=lambda x: -len(x[1])
-                )[:10]
-            ]
-        )
+            percentage_allophones: float = (
+                len(allophone_languages[phoneme]) / len_languages
+            )
+            output_file.write(
+                f"{phoneme} "
+                f"{percentage_phonemes:.6f} "
+                f"{percentage_allophones:.6f}\n",
+            )
 
 
 if __name__ == "__main__":
-    parse(Path("data/phoible.csv"))
+    parse(Path("data/phoible.csv"), Path("out/phoneme_frequency.txt"))
