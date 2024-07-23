@@ -23,5 +23,6 @@ build/language > out/ipa.tex
 cp data/*.tex out/
 
 # Construct PDF file.
-xelatex -output-directory out out/table.tex
-xelatex -output-directory out out/text.tex
+cd out
+xelatex table.tex
+xelatex text.tex
