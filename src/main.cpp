@@ -549,13 +549,13 @@ void drawTikz(
         painter->rectangle(
             center + Vector(-0.8, 0.25),
             center + Vector(0.2, -0.25),
-            "draw=black, fill=yellow!30");
+            "draw=black");
         return;
     } else {
         painter->rectangle(
             center + Vector(-0.8, 0.25),
             center + Vector(0.2, -0.25),
-            "draw=black, fill=yellow!15");
+            "draw=black");
     }
 
     Symbol symbol = Symbol();
