@@ -1,0 +1,20 @@
+# Generated directories.
+build/
+out/
+
+# Tex files.
+*.aux
+*.log
+
+# Cache files.
+.DS_Store
+.cache/
+
+# Configurations.
+.idea/
+.vscode/
+
+# Temporary directories and files.
+esperanto/
+data/phoible.csv
+gl_test/
