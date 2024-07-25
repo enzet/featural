@@ -36,3 +36,44 @@ ejective_plosive/stop            pʼ -   -   -   tʼ  -   ʈʼ  cʼ  kʼ  qʼ  �
 ejective_affricate               -  p̪fʼ -   t̪θʼ tsʼ t̠ʃʼ tʂʼ tɕʼ kxʼ qχʼ -  -  -
 ejective_fricative               ɸʼ fʼ  -   θʼ  sʼ  ʃʼ  ʂʼ  ɕʼ  xʼ  χʼ  -  -  -
 ejective_lateral                 -  -   -   -   ɬʼ  -   tɬʼ c𝼆ʼ k𝼄ʼ q𝼄ʼ -  -  -
+
+plosive/stop;voiceless;aspirated
+velar    kʰ
+labial   pʰ
+alveolar tʰ
+
+plosive/stop;labial;velar 
+voiced    ɡ͡b;ɡb 
+voiceless k͡p;kp
+
+plosive/stop;nasal;voiced
+labial   mb
+alveolar nd
+velar    ŋɡ
+
+velar;labial
+approximant;voiced               w
+approximant;voiceless            ʍ
+plosive/stop;voiceless           kʷ
+plosive/stop;voiced              ɡʷ
+non-sibilant_fricative;voiceless xʷ
+non-sibilant_fricative;voiced    ɣʷ
+nasal;voiced                     ŋʷ
+
+palatal2
+non-sibilant_fricative;voiceless;labial;dental fʲ
+non-sibilant_fricative;voiced;labial;dental    vʲ
+nasal;voiced;alveolar                          nʲ
+plosive/stop;voiceless;velar                   kʲ
+plosive/stop;voiced;velar                      gʲ
+nasal;voiced;velar                             ŋʲ
+non-sibilant_fricative;voiceless;velar         xʲ
+non-sibilant_fricative;voiceless;glottal       hʲ
+
+retroflex
+click_tenuis_lateral;velar  kǀǀ
+click_tenuis_lateral;uvular qǀǀ
+click_voiced_lateral;velar  ɡǀǀ
+click_voiced_lateral;uvular ɢǀǀ
+click_nasal_lateral;velar   ŋǀǀ
+click_nasal_lateral;uvular  ɴǀǀ
