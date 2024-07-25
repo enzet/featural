@@ -10,14 +10,15 @@ palatal                vr
 palatal2               vr
 velar                  /
 uvular                 \
-pharyngeal/epiglottal  vc vr
+pharyngeal             vc vr
 glottal                vro
 nasal                  hto
-plosive/stop           ht
+plosive                ht
 sibilant_affricate     ht hbo
 non-sibilant_affricate ht hb
 sibilant_fricative     hbo
 non-sibilant_fricative hb
+fricative              hb
 approximant            hc
 tap/flap               hc2
 trill                  ht hbs
@@ -32,7 +33,7 @@ click_tenuis_lateral   htI2
 click_voiced_lateral   hbI2
 click_nasal_lateral    htO2
 implosive              htO hbO
-ejective_plosive/stop  ht2
+ejective_plosive       ht2
 ejective_fricative     hb2
 ejective_affricate     ht2 hb2
 ejective_lateral       hb hbi

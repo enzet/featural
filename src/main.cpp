@@ -538,7 +538,8 @@ void drawTikz(
     std::vector<std::string> reprs,
     Vector center) {
 
-    bool hasIpaSymbol = ipaSymbol != "-" and ipaSymbol != "=";
+    bool hasIpaSymbol
+        = ipaSymbol != "-" and ipaSymbol != "=" and ipaSymbol != " ";
     bool isImpossible = ipaSymbol == "=";
 
     if (hasIpaSymbol) {
@@ -725,8 +726,8 @@ int main(int argc, char** argv) {
              "uvular",
              "pharyngeal",
              "glottal"},
-            {"plosive/stop;voiceless",
-             "plosive/stop;voiced",
+            {"plosive;voiceless",
+             "plosive;voiced",
              "nasal;voiceless",
              "nasal;voiced",
              "trill;voiceless",
