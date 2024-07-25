@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <fstream>
 #include <iostream>
 #include <regex>
@@ -66,7 +67,12 @@ public:
 
 class Painter {
 
+protected:
+    std::string path;
+
 public:
+    Painter() {};
+    Painter(std::string path) {};
     virtual void end() = 0;
     virtual std::string getString() = 0;
 
@@ -89,11 +95,10 @@ public:
  */
 class TikzPainter : public Painter {
 
-    /* Output stream. */
     std::stringstream stream;
 
 public:
-    TikzPainter() {
+    TikzPainter(std::string path) {
         stream << "\\begin{tikzpicture}" << std::endl;
     }
 
@@ -537,25 +542,9 @@ void drawTikz(
     bool isImpossible = ipaSymbol == "=";
 
     if (hasIpaSymbol) {
-        painter->rectangle(
-            center + Vector(-0.8, 0.25),
-            center + Vector(0.2, -0.25),
-            "draw=black");
-        painter->text(
-            center - Vector(0.8, 0),
-            "\\doulos{" + ipaSymbol + "}",
-            "anchor=west");
+        painter->text(center - Vector(0, 0), "\\doulos{" + ipaSymbol + "}", "");
     } else if (isImpossible) {
-        painter->rectangle(
-            center + Vector(-0.8, 0.25),
-            center + Vector(0.2, -0.25),
-            "draw=black");
         return;
-    } else {
-        painter->rectangle(
-            center + Vector(-0.8, 0.25),
-            center + Vector(0.2, -0.25),
-            "draw=black");
     }
 
     Symbol symbol = Symbol();
@@ -573,79 +562,148 @@ void drawTikz(
         symbol.add(element);
     }
     float size = 0.1f;
-    symbol.draw(painter, center, size);
+    symbol.draw(painter, center + Vector(0.5, 0), size);
 }
 
-void parseConsonants(
-    const std::string& path,
-    std::unordered_map<std::string, std::vector<std::string>> graphs) {
+/*
+ * Sort parameters sequence separated by `;`.
+ */
+std::string sortParameters(std::string parameters) {
 
-    Painter* painter = new TikzPainter();
+    std::vector<std::string> parametersVector = split(parameters, ';');
+    std::sort(parametersVector.begin(), parametersVector.end());
 
-    std::ifstream inFile(path);
+    std::ostringstream result;
 
-    if (not inFile.is_open()) {
-        throw std::invalid_argument("Could not open the file " + path + ".");
+    for (std::string parameter : parametersVector) {
+        result << parameter << ';';
+    }
+    return result.str();
+}
+
+class IpaSymbols {
+
+    std::unordered_map<std::string, std::string> symbols;
+
+public:
+    void add(std::string parameters, std::string ipaSymbol) {
+        std::string key = sortParameters(parameters);
+        symbols[key] = ipaSymbol;
     }
 
-    std::string line;
+    std::string findSymbol(std::string key) {
+        if (symbols.contains(key)) {
+            return symbols[key];
+        }
+        return " ";
+    }
+};
 
-    std::getline(inFile, line);
-    std::vector<std::string> headers = split(line, ' ');
+std::string parametersToTex(std::string parameters) {
+    parameters = std::regex_replace(parameters, std::regex("_"), " ");
+    parameters = std::regex_replace(parameters, std::regex(";"), ", ");
+    return parameters;
+}
+
+void drawTable(
+    Painter* painter,
+    std::vector<std::string> columns,
+    std::vector<std::string> rows,
+    IpaSymbols* ipaSymbols,
+    std::unordered_map<std::string, std::vector<std::string>> graphs) {
 
     float x = 0.0f;
     float y = 0.0f;
 
-    for (unsigned i = 0; i < headers.size(); i++) {
-        std::string tex = std::regex_replace(headers[i], std::regex("_"), " ");
-        tex = std::regex_replace(tex, std::regex(";"), ", ");
-        painter->text(Vector(x - 0.5, y + 0.5), tex, "anchor=west, rotate=30");
-        x += 1;
+    float xStep = 1.0f;
+    float yStep = 0.5f;
+
+    for (unsigned i = 0; i <= columns.size(); i++) {
+        painter->line(
+            Vector(i * xStep, 0),
+            Vector(i * xStep, rows.size() * -yStep),
+            "draw=black");
+        if (i < columns.size()) {
+            painter->text(
+                Vector(i * xStep + 0.5, y + 0.3),
+                parametersToTex(columns[i]),
+                "anchor=west, rotate=30");
+        }
     }
-    x = 0.0f;
+    for (unsigned i = 0; i <= rows.size(); i++) {
+        painter->line(
+            Vector(0, i * -yStep),
+            Vector(columns.size() * xStep, i * -yStep),
+            "draw=black");
+        if (i < rows.size()) {
+            painter->text(
+                Vector(x - 0.1, i * -yStep - (yStep / 2)),
+                parametersToTex(rows[i]),
+                "anchor=east");
+        }
+    }
 
-    while (std::getline(inFile, line)) {
+    for (std::string row : rows) {
+        for (std::string column : columns) {
 
-        std::vector<std::string> row = split(line, ' ');
-        std::vector<std::string> rowNames = split(row[0], ';');
-
-        std::string tex = std::regex_replace(row[0], std::regex("_"), " ");
-        tex = std::regex_replace(tex, std::regex(";"), ", ");
-        painter->text(Vector(x - 6, y), tex, "anchor=west");
-
-        for (unsigned i = 1; i < row.size(); i++) {
-
-            std::string ipaSymbol = row[i];
-
-            std::vector<std::string> columnNames = split(headers[i - 1], ';');
-
-            std::vector<std::string> names = columnNames;
-            names.insert(names.end(), rowNames.begin(), rowNames.end());
+            std::string parameters = column + ";" + row;
+            std::vector<std::string> parametersVector = split(parameters, ';');
+            std::string key = sortParameters(parameters);
+            std::string ipaSymbol = ipaSymbols->findSymbol(key);
 
             std::vector<std::string> descriptors;
 
-            for (unsigned j = 0; j < names.size(); j++) {
-                std::string name = names[j];
-                if (graphs.contains(name)) {
-                    for (unsigned k = 0; k < graphs[name].size(); k++) {
-                        std::string descriptor = graphs[name][k];
+            for (std::string parameter : parametersVector) {
+                if (graphs.contains(parameter)) {
+                    for (unsigned k = 0; k < graphs[parameter].size(); k++) {
+                        std::string descriptor = graphs[parameter][k];
                         if (descriptor != ".") {
-                            descriptors.push_back(graphs[name][k]);
+                            descriptors.push_back(graphs[parameter][k]);
                         }
                     }
                 } else {
-                    std::cerr << "Unknown name <" << name << ">" << std::endl;
+                    std::cerr << "Unknown parameter <" << parameter << ">"
+                              << std::endl;
                 }
             }
-            drawTikz(painter, ipaSymbol, descriptors, Vector(x, y));
-            x += 1;
+            drawTikz(
+                painter, ipaSymbol, descriptors, Vector(x + 0.25, y - 0.25));
+            x += xStep;
         }
-        y -= 0.5;
+        y -= yStep;
         x = 0;
     }
     painter->end();
-
     std::cout << painter->getString();
+}
+
+IpaSymbols* parseTables(const std::string& path) {
+
+    IpaSymbols* ipaSymbols = new IpaSymbols();
+
+    std::ifstream inFile(path);
+
+    std::string line;
+    std::getline(inFile, line);
+    std::vector<std::string> columns = split(line, ' ');
+
+    while (std::getline(inFile, line)) {
+
+        if (line.empty()) {
+            std::getline(inFile, line);
+            columns = split(line, ' ');
+            continue;
+        }
+        std::vector<std::string> parts = split(line, ' ');
+        std::string row = parts[0];
+
+        for (unsigned i = 1; i < parts.size(); i++) {
+
+            std::string parameters = columns[i - 1] + ';' + row;
+            ipaSymbols->add(parameters, parts[i]);
+        }
+    }
+    return ipaSymbols;
 }
 
 int main(int argc, char** argv) {
@@ -653,7 +711,38 @@ int main(int argc, char** argv) {
     try {
         std::unordered_map<std::string, std::vector<std::string>> graphs
             = parseGraphs("data/graphs.txt");
-        parseConsonants("data/consonants.txt", graphs);
+        IpaSymbols* ipaSymbols = parseTables("data/consonants.txt");
+        drawTable(
+            new TikzPainter("out/ipa_table.tex"),
+            {"labial",
+             "labial;dental",
+             "dental",
+             "alveolar",
+             "postalveolar",
+             "retroflex",
+             "palatal",
+             "velar",
+             "uvular",
+             "pharyngeal",
+             "glottal"},
+            {"plosive/stop;voiceless",
+             "plosive/stop;voiced",
+             "nasal;voiceless",
+             "nasal;voiced",
+             "trill;voiceless",
+             "trill;voiced",
+             "tap/flap;voiceless",
+             "tap/flap;voiced",
+             "fricative;voiceless",
+             "fricative;voiced",
+             "lateral_fricative;voiceless",
+             "lateral_fricative;voiced",
+             "approximant;voiceless",
+             "approximant;voiced",
+             "lateral_approximant;voiceless",
+             "lateral_approximant;voiced"},
+            ipaSymbols,
+            graphs);
 
     } catch (const std::exception& e) {
         std::cerr << e.what() << std::endl;
