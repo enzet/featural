@@ -13,7 +13,7 @@ non-sibilant_fricative;voiceless ɸ  f   θ̼   θ   θ̠   ɹ̠̊˔  ɻ̊˔  ç
 non-sibilant_fricative;voiced    β  v   ð̼   ð   ð̠   ɹ̠˔  ɻ˔  ʝ   ɣ   ʁ   ʕ  ɦ  -
 fricative;voiceless              ɸ  f   θ̼   θ   s   ʃ   ʂ   ɕ   x   χ   ħ  h  -
 fricative;voiced                 β  v   ð̼   ð   z   ʒ   ʐ   ʑ   ɣ   ʁ   ʕ  ɦ  -
-approximant;voiced               -  ʋ   -   -   ɹ   -   ɻ   j   ɰ   -   -  ʔ̞  ɹʲ
+approximant;voiced               -  ʋ   -   -   ɹ   ɹ̠   ɻ   j   ɰ   -   -  ʔ̞  ɹʲ
 tap/flap;voiceless               -  -   -   -   ɾ̥   -   ɽ̊   -   =   -   -  =  -
 tap/flap;voiced                  ⱱ̟  ⱱ   ɾ̼   -   ɾ   -   ɽ   -   =   ɢ̆   ʡ̆  =  ɾʲ
 trill;voiceless                  ʙ̥  -   -   -   r̥   -   ɽ̊r̥  -   =   ʀ̥   ʜ  =  -
@@ -23,7 +23,7 @@ lateral_affricate;voiced         =  =   -   -   dɮ  -   d𝼅  ɟʎ̝  ɡʟ̝  
 lateral_fricative;voiceless      =  =   -   -   ɬ   -   ꞎ   𝼆   𝼄   -   =  =  ɬʲ
 lateral_fricative;voiced         =  =   -   -   ɮ   -   𝼅   ʎ̝   ʟ̝   -   =  =  -
 lateral_approximant;voiceless    =  =   -   -   -   -   -   -   -   -   =  =  -
-lateral_approximant;voiced       =  =   -   -   l   -   ɭ   ʎ   ʟ   ʟ̠   =  =  lʲ
+lateral_approximant;voiced       =  =   -   l̪   l   -   ɭ   ʎ   ʟ   ʟ̠   =  =  lʲ
 lateral_tap/flap;voiceless       =  =   -   -   ɺ̥   -   𝼈̥   -   -   -   =  =  -
 lateral_tap/flap;voiced          =  =   -   -   ɺ   -   𝼈   ʎ̆   ʟ̆   -   =  =  -
 click_tenuis;velar               kʘ -   -   kǀ  k!  -   k𝼊  kǂ  -   -   -  -  -
