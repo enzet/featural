@@ -1,6 +1,8 @@
 #ifndef VISUAL_HPP
 #define VISUAL_HPP
 
+#include <sstream>
+
 #include "geometry.hpp"
 
 class Painter {

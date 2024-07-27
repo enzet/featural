@@ -1,16 +1,14 @@
-#include <algorithm>
-#include <string>
-#include <vector>
-#include <sstream>
-#include <iostream>
 #include <fstream>
+#include <iostream>
 #include <regex>
+#include <string>
 #include <unordered_map>
+#include <vector>
 
 #include "geometry.hpp"
 #include "symbol.hpp"
-#include "visual.hpp"
 #include "util.hpp"
+#include "visual.hpp"
 
 float DOUBLE_SIZE = 0.5;
 float CURVE_SIZE = 0.5;
@@ -182,8 +180,7 @@ void Element::draw(
                         p4 = p4 + element.getNorm() * -DOUBLE_SIZE;
                         p3 = p3 + element.getNorm() * -DOUBLE_SIZE;
                     }
-                } else if (element.getNorm().isGridCodirectedTo(
-                               direction)) {
+                } else if (element.getNorm().isGridCodirectedTo(direction)) {
                     p1 = p1 - direction * DOUBLE_SIZE;
                     p2 = p2 - direction * DOUBLE_SIZE;
                 } else {
@@ -197,8 +194,7 @@ void Element::draw(
 
                 // Shift point if element is no the edge, orthogonal to the
                 // curved element, and curved inwards.
-                if ((step.x == 1 or step.x == -1 or step.y == 1
-                     or step.y == -1)
+                if ((step.x == 1 or step.x == -1 or step.y == 1 or step.y == -1)
                     and getNorm().isGridParallelTo(element.direction)
                     and not element.isInwards) {
                     // Shift point.
@@ -257,11 +253,7 @@ void Element::draw(
         draw(painter, center, size, getNorm() * 1.0f, elements);
         if (this->isDouble) {
             draw(
-                painter,
-                center,
-                size,
-                getNorm() * (1 - DOUBLE_SIZE),
-                elements);
+                painter, center, size, getNorm() * (1 - DOUBLE_SIZE), elements);
         }
     }
 }

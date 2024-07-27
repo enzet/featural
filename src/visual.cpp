@@ -1,9 +1,9 @@
-#include <string>
 #include <iostream>
 #include <sstream>
+#include <string>
 
-#include "visual.hpp"
 #include "geometry.hpp"
+#include "visual.hpp"
 
 TikzPainter::TikzPainter(std::string path) {
     stream << "\\begin{tikzpicture}" << std::endl;
@@ -34,19 +34,20 @@ void TikzPainter::curve(
     std::string settings) {
 
     stream << "\\draw[" << settings << "] (" << point1.x << ", " << point1.y
-           << ") .. " << "controls (" << point2.x << ", " << point2.y
-           << ") " << "and (" << point3.x << ", " << point3.y << ") .. "
+           << ") .. " << "controls (" << point2.x << ", " << point2.y << ") "
+           << "and (" << point3.x << ", " << point3.y << ") .. "
            << "(" << point4.x << ", " << point4.y << ");" << std::endl;
 }
 
 /* Draw text. */
 void TikzPainter::text(Vector center, std::string text, std::string settings) {
-    stream << "\\node[" << settings << "] at (" << center.x << ", "
-           << center.y << ") {" << text << "};" << std::endl;
+    stream << "\\node[" << settings << "] at (" << center.x << ", " << center.y
+           << ") {" << text << "};" << std::endl;
 }
 
 /* Draw axes aligned rectangle. */
-void TikzPainter::rectangle(Vector point1, Vector point2, std::string settings) {
+void TikzPainter::rectangle(
+    Vector point1, Vector point2, std::string settings) {
     stream << "\\draw[" << settings << "] (" << point1.x << ", " << point1.y
            << ") rectangle (" << point2.x << ", " << point2.y << ");"
            << std::endl;
