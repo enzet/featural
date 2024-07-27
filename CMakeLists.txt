@@ -8,4 +8,11 @@ project(Language)
 include_directories(include)
 add_subdirectory(src)
 
-add_executable(language src/main.cpp)
+add_executable(
+    language
+    src/geometry.cpp
+    src/main.cpp
+    src/symbol.cpp
+    src/util.cpp
+    src/visual.cpp
+)
