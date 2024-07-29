@@ -1,8 +1,10 @@
 #ifndef GEOMETRY_HPP
 #define GEOMETRY_HPP
 
+/* Checks if two floating point numbers are approximately equal. */
 bool equals(float x, float y);
 
+/* Simple 2D vector. */
 class Vector {
 
 public:
@@ -14,6 +16,8 @@ public:
     Vector operator*(float p);
     Vector operator+(Vector other);
     Vector operator-(Vector other);
+
+    /* Checks if two vectors approximately equal. */
     bool operator==(Vector other);
 
     /* Check whether vectors are grid aligned and parallel. */

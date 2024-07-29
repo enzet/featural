@@ -5,6 +5,11 @@
 
 #include "geometry.hpp"
 
+/*
+ * A wrapper for a painter that can draw primitives on the plane.
+ *
+ * Those primitives are: lines, Bezier curves, rectangles, text.
+ */
 class Painter {
 
 protected:
@@ -39,11 +44,10 @@ public:
         = 0;
 };
 
-/*
- * Wrapper for drawing Tikz elements.
- */
+/* Write TikZ code of graphical primitives. */
 class TikzPainter : public Painter {
 
+    /* Stream to write TikZ code to. */
     std::stringstream stream;
 
 public:

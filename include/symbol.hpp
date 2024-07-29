@@ -6,9 +6,7 @@
 
 #include "visual.hpp"
 
-/*
- * Describes a graphical element: how and where to draw it.
- */
+/* Describes a graphical element: how and where to draw it. */
 enum class ElementDescriptor {
 
     // Direction.
@@ -36,9 +34,7 @@ enum class ElementDescriptor {
     Unknown
 };
 
-/*
- * Sort parameters sequence separated by `;`.
- */
+/* Sort parameters sequence separated by `;`. */
 std::string sortParameters(std::string parameters);
 
 /*
@@ -78,9 +74,7 @@ public:
         Vector step,
         std::vector<Element> elements);
 
-    /*
-     * Draw symbol element.
-     */
+    /* Draw symbol element. */
     void draw(
         Painter* painter,
         Vector center,
@@ -126,11 +120,20 @@ static std::unordered_map<char, ElementDescriptor> const descriptorMap
        {'s', ElementDescriptor::Short},
        {'?', ElementDescriptor::Unknown}};
 
-/*
- * Convert graphical element text representation into element descriptor.
- */
+/* Convert graphical element text representation into element descriptor. */
 ElementDescriptor getElementDescriptor(char elementRepr);
 
+/*
+ * Parse graphs file.
+ *
+ * The file has the following structure: it has space-separated data on each
+ * line, where the first element is a parameter of a phoneme and the rest are
+ * descriptors of graphical elements.
+ *
+ * E.g. `sibilant_affricate ht hbo`, which means, that if sound is a sibilant
+ * affricate, its symbol should have horizontal top line and horizontal bottom
+ * line curved outwards.
+ */
 std::unordered_map<std::string, std::vector<std::string>>
 parseGraphs(const std::string& path);
 
