@@ -19,7 +19,11 @@ cmake --build build
 
 # Construct TeX file.
 mkdir -p out
-build/language > out/ipa.tex
+
+build/language table \
+    "labial,labial;dental,dental,alveolar,postalveolar,retroflex,palatal,velar,uvular,pharyngeal,glottal" \
+    "plosive;voiceless,plosive;voiced,nasal;voiceless,nasal;voiced,trill;voiceless,trill;voiced,tap/flap;voiceless,tap/flap;voiced,sibilant_fricative;voiceless,sibilant_fricative;voiced,non-sibilant_fricative;voiceless,non-sibilant_fricative;voiced,lateral_fricative;voiceless,lateral_fricative;voiced,approximant;voiced,lateral_approximant;voiceless,lateral_approximant;voiced" \
+    > out/ipa.tex
 cp data/*.tex out/
 
 # Construct PDF file.

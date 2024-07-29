@@ -1,0 +1,43 @@
+digraph G {
+    node [
+        shape=rectangle,
+        fontname="CMU Typewriter Text",
+        style="rounded,filled", 
+        fillcolor="white",
+    ];
+    edge [arrowhead="open"];
+
+    data_graphs_txt[label="data/graphs.txt", fillcolor="lightyellow"];
+    data_consonants_txt[label="data/consonants.txt", fillcolor="lightyellow"];
+    C[label="C++", fillcolor=".5 .1 1", fontname="CMU Sans Serif"];
+    data_phoible_csv[label="data/phoible.txt\n23 MB"];
+    Python[label="Python", fillcolor=".5 .1 1", fontname="CMU Sans Serif"];
+    data_text_moi[label="data/text.moi", fillcolor="lightyellow"];
+    out_header_tex[label="out/header.tex"];
+    out_ipa_tex[label="out/ipa.tex"];
+    data_table_tex[label="data/table.tex", fillcolor="lightyellow"];
+    out_table_tex[label="out/table.tex"];
+    out_table_pdf[label="out/table.pdf"];
+    data_text_tex[label="data/text.tex", fillcolor="lightyellow"];
+    out_text_tex[label="out/text.tex"];
+    doc_readme_moi[label="doc/readme.moi", fillcolor="lightyellow"];
+    out_phoneme_frequency_txt[label="out/phoneme_frequency.txt"];
+    README_md[label="README.md", fillcolor=".333 .1 1"];
+    out_text_pdf[label="out/text.pdf", fillcolor=".333 .1 1"];
+    
+    data_graphs_txt -> C;
+    data_consonants_txt -> C;
+    data_phoible_csv -> Python;
+    Python -> out_phoneme_frequency_txt;
+    C -> out_ipa_tex;
+    out_header_tex -> out_text_tex;
+    out_ipa_tex -> data_table_tex;
+    data_table_tex -> out_table_tex;
+    out_table_tex -> out_table_pdf;
+    out_table_pdf -> out_text_tex;
+    data_text_tex -> out_text_tex;
+    out_text_tex -> out_text_pdf;
+    doc_readme_moi -> README_md;
+    data_text_moi -> C;
+    C -> out_header_tex;
+}

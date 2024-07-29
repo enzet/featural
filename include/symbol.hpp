@@ -98,6 +98,7 @@ class Symbol {
     std::vector<Element> elements;
 
 public:
+    Symbol(std::vector<std::string> reprs);
     void add(Element element);
     void draw(Painter* painter, Vector center, float size);
 };

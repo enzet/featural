@@ -23,3 +23,15 @@ To get a PDF file with the alphabet, run
 
 It will create `build` directory and `out` directory with output PDF file.
 
+## Language utility
+
+Language utility has two commands: `table` and `symbol`:
+
+
+  *  `table <rows> <columns>`, where `rows` is the list of phoneme parameters separated by `,`. E.g. `table "dental,alveolar" "trill;voiceless,trill;voiced"`. 
+  *  `symbol <descriptors>`, where `descriptors` is the list of symbol element descriptors. E.g. `symbol vc hc`. 
+
+## Code and commit style
+
+All C++ code should be formatted with clang-format, configuration file is `.clang-format`. All Python code should be formatted with Black, default configuration with `--line-length 80`.
+

@@ -258,6 +258,21 @@ void Element::draw(
     }
 }
 
+Symbol::Symbol(std::vector<std::string> reprs) {
+    for (unsigned i = 0; i < reprs.size(); i++) {
+        std::string repr = reprs[i];
+
+        Element element = Element();
+
+        for (char& elementRepr : repr) {
+            ElementDescriptor elementDescriptor
+                = getElementDescriptor(elementRepr);
+            element.add(elementDescriptor);
+        }
+        add(element);
+    }
+}
+
 void Symbol::add(Element element) {
     elements.push_back(element);
 }
@@ -320,22 +335,8 @@ void drawTikz(
         return;
     }
 
-    Symbol symbol = Symbol();
-
-    for (unsigned i = 0; i < reprs.size(); i++) {
-        std::string repr = reprs[i];
-
-        Element element = Element();
-
-        for (char& elementRepr : repr) {
-            ElementDescriptor elementDescriptor
-                = getElementDescriptor(elementRepr);
-            element.add(elementDescriptor);
-        }
-        symbol.add(element);
-    }
-    float size = 0.1f;
-    symbol.draw(painter, center + Vector(0.5, 0), size);
+    Symbol symbol = Symbol(reprs);
+    symbol.draw(painter, center + Vector(0.5, 0), 0.1f);
 }
 
 void IpaSymbols::add(std::string parameters, std::string ipaSymbol) {

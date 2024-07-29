@@ -36,49 +36,58 @@ IpaSymbols* parseTables(const std::string& path) {
     return ipaSymbols;
 }
 
+void drawTable(
+    std::vector<std::string> rows, std::vector<std::string> columns) {
+    std::unordered_map<std::string, std::vector<std::string>> graphs
+        = parseGraphs("data/graphs.txt");
+    IpaSymbols* ipaSymbols = parseTables("data/consonants.txt");
+    drawTable(
+        new TikzPainter("out/ipa_table.tex"),
+        rows,
+        columns,
+        ipaSymbols,
+        graphs);
+}
+
+void drawSymbol(std::vector<std::string> parameters) {
+    Painter* painter = new TikzPainter("out/ipa_table.tex");
+    Symbol symbol = Symbol(parameters);
+    symbol.draw(painter, Vector(0, 0), 0.1f);
+    painter->end();
+    std::cout << painter->getString();
+}
+
 int main(int argc, char** argv) {
 
     try {
-        std::unordered_map<std::string, std::vector<std::string>> graphs
-            = parseGraphs("data/graphs.txt");
-        IpaSymbols* ipaSymbols = parseTables("data/consonants.txt");
-        drawTable(
-            new TikzPainter("out/ipa_table.tex"),
-            {"labial",
-             "labial;dental",
-             "dental",
-             "alveolar",
-             "postalveolar",
-             "retroflex",
-             "palatal",
-             "velar",
-             "uvular",
-             "pharyngeal",
-             "glottal"},
-            {"plosive;voiceless",
-             "plosive;voiced",
-             "nasal;voiceless",
-             "nasal;voiced",
-             "trill;voiceless",
-             "trill;voiced",
-             "tap/flap;voiceless",
-             "tap/flap;voiced",
-             "sibilant_fricative;voiceless",
-             "sibilant_fricative;voiced",
-             "non-sibilant_fricative;voiceless",
-             "non-sibilant_fricative;voiced",
-             "lateral_fricative;voiceless",
-             "lateral_fricative;voiced",
-             "approximant;voiced",
-             "lateral_approximant;voiceless",
-             "lateral_approximant;voiced"},
-            ipaSymbols,
-            graphs);
+        if (std::string(argv[1]) == "table") {
+            if (argc != 4) {
+                std::cerr << "`table` command should have exactly two "
+                             "arguments: rows and columns."
+                          << std::endl;
+                return 1;
+            }
+            std::vector<std::string> rows = split(argv[2], ',');
+            std::vector<std::string> columns = split(argv[3], ',');
+
+            drawTable(rows, columns);
+
+        } else if (std::string(argv[1]) == "symbol") {
+            std::vector<std::string> parameters;
+            for (unsigned i = 0; i < argc - 2; i++) {
+                parameters.push_back(std::string(argv[i + 2]));
+            }
+            drawSymbol(parameters);
+
+        } else {
+            std::cerr << "First argument should be `table` or `symbol`."
+                      << std::endl;
+            return 1;
+        }
 
     } catch (const std::exception& e) {
         std::cerr << e.what() << std::endl;
         return 1;
     }
-
     return 0;
 }
