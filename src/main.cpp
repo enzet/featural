@@ -74,7 +74,7 @@ int main(int argc, char** argv) {
 
         } else if (std::string(argv[1]) == "symbol") {
             std::vector<std::string> parameters;
-            for (unsigned i = 0; i < argc - 2; i++) {
+            for (int i = 0; i < argc - 2; i++) {
                 parameters.push_back(std::string(argv[i + 2]));
             }
             drawSymbol(parameters);
