@@ -2,10 +2,10 @@
 
 #include "geometry.hpp"
 
-float PRECISION = 0.01;
+#define PRECISION 1e-5f
 
 bool equals(float x, float y) {
-    return abs(x - y) < PRECISION;
+    return std::fabs(x - y) < PRECISION;
 }
 
 Vector::Vector() {
