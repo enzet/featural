@@ -6,15 +6,13 @@ out/
 *.aux
 *.log
 
-# Cache files.
-.DS_Store
-.cache/
-
 # Configurations.
 .idea/
 .vscode/
+.venv/
 
 # Temporary directories and files.
-esperanto/
+__pycache__/
 data/phoible.csv
+esperanto/
 gl_test/
