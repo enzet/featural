@@ -1,0 +1,53 @@
+\1 {Featural alternative to international phonetic alphabet} {featural}
+
+Goals:
+\list
+    {
+        the alphabet is featural, meaning each element should represent some
+        phonological feature of a sound,
+    }
+    {
+        symbols for most frequently used symbols should be as simple as
+        possible,
+    }
+    {
+        the character elements must have the same line width so that they can be
+        written by hand with a pen.
+    }
+
+\2 {Build and run} {build}
+
+Requirements:
+\list
+    {C++20 compiler,}
+    {CMake version 3.30 or higher,}
+    {\m {xelatex} compiler (\ref {https://tug.org/xetex/} {XeTeX}),}
+    {\ref {https://software.sil.org/doulos/download/} {Doulos SIL} font.}
+
+To get a PDF file with the alphabet, run
+
+\code {shell} {
+./build.sh
+}
+
+It will create \m {build} directory and \m {out} directory with output PDF file.
+
+\2 {Language utility} {utility}
+
+Language utility has two commands: \m {table} and \m {symbol}:
+\list
+    {
+        \m {table <rows> <columns>}, where \m {rows} is the list of phoneme
+        parameters separated by \m {,}. E.g.  \m {table "dental,alveolar"
+        "trill;voiceless,trill;voiced"}.
+    }
+    {
+        \m {symbol <descriptors>}, where \m {descriptors} is the list of symbol
+        element descriptors. E.g. \m {symbol vc hc}.
+    }
+
+\2 {Code and commit style} {style}
+
+All C++ code should be formatted with clang-format, configuration file is 
+\m {.clang-format}. All Python code should be formatted with Black, default
+configuration with \m {--line-length 80}.
