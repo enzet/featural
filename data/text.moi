@@ -1,0 +1,212 @@
+\author {Sergey Vartanov}
+
+\title {A Featural Alternative to the International Phonetic Alphabet}
+
+\abstract{
+    The International Phonetic Alphabet (IPA) is the most widely used system for
+    representing the sounds of spoken languages. However, its Latin-based
+    symbols are not graphically connected to the sounds or articulatory features
+    they represent. This paper proposes a new featural alternative to the IPA,
+    where symbols are constructed from graphical elements representing
+    phonological features. The system prioritizes simplicity for frequently used
+    phonemes and allows for the combination of symbols to represent affricates
+    and other complex sounds. Additionally, a program has been developed to
+    generate the entire alphabet based on initial settings for each phonological
+    feature.
+}
+
+\1 {Introduction} {fipa_introduction}
+
+The IPA is a crucial tool in phonetics and linguistics, providing a standardized
+method for transcribing the sounds of spoken language. Despite its widespread
+use, the IPA's Latin-based symbols lack a direct graphical connection to the
+phonetic features they represent. This paper introduces a featural system for
+phonemic representation that addresses this limitation by using symbols
+constructed from elements denoting specific phonological features. The goals of
+this system are to enhance the intuitive understanding of phonetic symbols,
+simplify the representation of frequently used phonemes, and facilitate the
+handwritten transcription of phonemes.
+
+\1 {The International Phonetic Alphabet} {ipa_problem}
+
+The International Phonetic Alphabet (IPA) is primarily Latin-based and is
+effective and intuitive for representing many common phonemes. However, when it
+comes to depicting more complex and less frequently encountered sounds, the IPA
+relies on modifications of existing symbols and combinations of multiple
+symbols. This approach, while comprehensive, often lacks systematic consistency,
+leading to representations that can appear arbitrary and difficult to decipher.
+The modified symbols and combinations, intended to convey subtle phonetic
+distinctions, can become visually complex and obscure, posing challenges for
+users to learn and apply them accurately.
+
+For example, palatal non-sibilant affricates \ipa {cç} and \ipa {ɟʝ} looks
+different, but represent almost the same sounds except the first one is
+voiceless, and the second one is voiced. The pair \ipa {t̠ɹ̠̊˔} and \ipa {d̠ɹ̠˔} is
+similar to the previous pair except it is post-alveolar and not palatal, but
+uses totally different shapes and diacritics.
+
+\1 {Design Principles} {fipa_design_principles}
+
+The proposed system is based on several key design principles.
+
+\2 {Feature-Based Construction} {ipa_}
+
+Symbols are constructed from elements that represent phonological features.
+These elements include vertical, horizontal, and diagonal lines, as well as arcs
+and simple curves. The use of such basic geometric forms, common in many
+existing writing systems, facilitates easier learning and reproduction of the
+symbols.
+
+For consonants, the proposed system designs symbols using vertical and
+horizontal elements to clearly convey phonological features. Vertical elements
+are employed to represent the place of articulation, indicating where in the
+vocal tract the sound is produced. Horizontal elements, on the other hand,
+denote the manner of articulation, illustrating how the airflow is manipulated
+to produce the sound. This dual-element approach ensures that each consonant
+symbol systematically encodes essential phonetic information. For vowels, the
+symbols utilize two dimensions to represent key articulatory features. The
+vertical dimension indicates the vowel's height, distinguishing between open
+and close positions, while the horizontal dimension reflects the vowel's
+backness, differentiating between front and back positions. This design allows
+for a straightforward and intuitive representation of vowel sounds, ensuring
+that their articulatory characteristics are immediately apparent from their
+symbols.
+
+\2 {Simplicity for Frequency} {ipa_}
+
+Frequently used phonemes are represented by simpler symbols with fewer graphical
+elements. This principle ensures that the most commonly encountered sounds are
+the easiest to write and recognize, reducing cognitive load and increasing
+efficiency in both learning and usage.
+
+\2 {Handwriting and Font Flexibility} {ipa_}
+
+While all graphical elements should have a uniform width to ensure consistent
+and legible handwritten transcriptions, different fonts may vary the width of
+these elements without altering their meaning. This flexibility allows the
+symbols to be adapted to various typographic styles and contexts, maintaining
+their core design principles while providing aesthetic versatility.
+
+\2 {Combinatorial Representation} {ipa_}
+
+Symbols for complex sounds, such as affricates, are combinations of the symbols
+for their constituent sounds. This combinatorial approach maintains a logical
+and intuitive connection between the components and the resulting symbol. For
+instance, an affricate sound, which is a combination of a stop and a fricative,
+would have a symbol that visually integrates elements of the symbols for the
+stop and the fricative. This principle ensures that the system remains cohesive
+and systematic, facilitating easier understanding and recall of complex
+phonemes.
+
+\2 {Distinctiveness and Readability} {ipa_}
+
+Each symbol is designed to be visually distinct from others, reducing the
+likelihood of confusion between similar phonemes. The use of natural and simple
+elements helps maintain clarity and readability, ensuring that the symbols are
+easily distinguishable even in handwritten or low-resolution contexts.
+
+\2 {Consistency with Existing Systems} {ipa_}
+
+The design of the symbols incorporates elements that are familiar from existing
+writing systems, aiding in the intuitive adoption of the new phonemic symbols.
+By aligning with familiar shapes and forms, the system leverages existing
+knowledge, making it easier for users to learn and apply the new symbols
+effectively.
+
+By adhering to these design principles, the proposed featural system aims to
+create a set of phonemic symbols that are intuitive, easy to learn, and
+versatile across different contexts and media. The resulting alphabet not only
+provides a systematic representation of phonological features but also enhances
+the usability and accessibility of phonetic transcription.
+
+\1 {Methodology} {fipa_methodology}
+
+A program has been developed to generate the entire alphabet based on initial
+settings for each phonological feature. The program uses a set of predefined
+graphical elements corresponding to different phonological features. By
+combining these elements according to the specified features of each phoneme,
+the program produces unique symbols for each sound.
+
+\2 {Initial Settings} {fipa_settings}
+
+The initial settings define the graphical representation for each phonological
+feature.
+
+We use simple notation to encode symbols using graphical elements:
+\list
+    {
+        Direction: horizontal (\m {h}), vertical (\m {v}), diagonal (\m {/}),
+        reverse diagonal (\m {\\ }),
+    }
+    {
+        Position: top (\m {t}), bottom (\m {b}), left (\m {l}), right (\m {r}),
+        center (\m {c}),
+    }
+    {
+        Curvature: curved inwards (\m {i}), curved outwards (\m {o}),
+        pointed inwards (\m {I}), pointed outwards (\m {O}),
+    }
+    {Double line (\m {2}),}
+    {Short line (\m {s}).}
+
+\table
+    {{7} {\symbol {ht /}}}
+    {{C} {\symbol {vlo hto hbo}}}
+    {{D} {\symbol {vl ht hb vro}}}
+    {{E} {\symbol {vl ht hc hb}}}
+    {{F} {\symbol {vl ht hc}}}
+    {{H} {\symbol {vl vr hc}}}
+    {{I} {\symbol {vc}}}
+    {{J} {\symbol {vr hbo}}}
+    {{L} {\symbol {vl hb}}}
+    {{N} {\symbol {vl \\ vr}}}
+    {{O} {\symbol {vlo vro hbo hto}}}
+    {{S} {\symbol {hto hbo \\ }}}
+    {{T} {\symbol {vc ht}}}
+    {{U} {\symbol {vl vr hbo}}}
+    {{X} {\symbol {/ \\ }}}
+    {{Z} {\symbol {hb / ht}}}
+    {{Г} {\symbol {vl ht}}}
+    {{П} {\symbol {vl vr ht}}}
+    {{Ш} {\symbol {vl vc vr hb}}}
+
+\table
+    {{M} {\symbol {vl htI vr}}}
+    {{Y} {\symbol {htI vc}}}
+
+\1 {Comparison with IPA} {ipa_comparison}
+
+\symbol_table
+    {
+        {labial}
+        {labial;dental}
+        {dental}
+        {alveolar}
+        {postalveolar}
+        {retroflex}
+        {palatal}
+        {velar}
+        {uvular}
+        {pharyngeal}
+        {glottal}
+    }
+    {
+        {plosive;voiceless}
+        {plosive;voiced}
+        {nasal;voiceless}
+        {nasal;voiced}
+        {trill;voiceless}
+        {trill;voiced}
+        {tap/flap;voiceless}
+        {tap/flap;voiced}
+        {sibilant_fricative;voiceless}
+        {sibilant_fricative;voiced}
+        {non-sibilant_fricative;voiceless}
+        {non-sibilant_fricative;voiced}
+        {lateral_fricative;voiceless}
+        {lateral_fricative;voiced}
+        {approximant;voiced}
+        {lateral_approximant;voiceless}
+        {lateral_approximant;voiced}
+    }
+
