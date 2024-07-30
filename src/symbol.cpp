@@ -54,12 +54,12 @@ void Element::add(ElementDescriptor elementDescriptor) {
         break;
     case ElementDescriptor::Slash:
         indirectedNorm = Vector(1.0f, 1.0f);
-        direction = Vector(1.0f, -1.0f);
+        direction = Vector(1.0f, 1.0f);
         isDiagonal = true;
         break;
     case ElementDescriptor::Backslash:
         indirectedNorm = Vector(1.0f, -1.0f);
-        direction = Vector(1.0f, 1.0f);
+        direction = Vector(1.0f, -1.0f);
         isDiagonal = true;
         break;
     case ElementDescriptor::Center:
