@@ -1,6 +1,5 @@
-from moire.default import Default, DefaultTeX
+from moire.default import Default, DefaultTeX, DefaultMarkdown
 from moire.main import main
-from pathlib import Path
 from textwrap import dedent
 import subprocess
 import sys
@@ -83,6 +82,33 @@ class LanguageTeX(Language, DefaultTeX):
     def symbol_table(self, arg) -> str:
         rows: str = ",".join([x[0] for x in arg[0] if isinstance(x, list)])
         columns: str = ",".join([x[0] for x in arg[1] if isinstance(x, list)])
+        proc = subprocess.Popen(
+            ["build/language", "table", rows, columns],
+            stdout=subprocess.PIPE,
+        )
+        return proc.stdout.read().decode()
+
+
+class LanguageMarkdown(Language, DefaultMarkdown):
+    def author(self, arg) -> str:
+        return ""
+
+    def abstract(self, arg) -> str:
+        return self.parse(arg[0])
+
+    def ipa(self, arg) -> str:
+        return f"{{\\doulos{{{self.parse(arg[0])}}}}}"
+
+    def symbol(self, arg) -> str:
+        proc = subprocess.Popen(
+            ["build/language", "symbol"] + self.clear(arg[0]).split(" "),
+            stdout=subprocess.PIPE,
+        )
+        return proc.stdout.read().decode()
+
+    def symbol_table(self, arg) -> str:
+        rows: str = ",".join([x[0] for x in arg[0]])
+        columns: str = ",".join([x[0] for x in arg[1]])
         proc = subprocess.Popen(
             ["build/language", "table", rows, columns],
             stdout=subprocess.PIPE,
