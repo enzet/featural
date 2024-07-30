@@ -14,5 +14,4 @@ out/
 # Temporary directories and files.
 __pycache__/
 data/phoible.csv
-esperanto/
-gl_test/
+work/
