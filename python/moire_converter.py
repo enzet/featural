@@ -14,13 +14,13 @@ class LanguageTeX(Language, DefaultTeX):
     def body(self, arg) -> str:
         s = dedent(
             """\
-            \\documentclass[tikz]{article}
+            \\documentclass{article}
             \\usepackage[utf8]{inputenc}
             \\usepackage{tikz}
             \\usepackage{fontspec}
             \\usepackage[left=1.25in,right=1.25in,top=1in,bottom=1in]{geometry}
             \\setmainfont[Ligatures=TeX]{CMU Serif}
-            \\newfontface\doulos{Doulos SIL}
+            \\newfontface\\doulos{Doulos SIL}
             \\usetikzlibrary{positioning}
             \\begin{document}
             """
