@@ -40,14 +40,14 @@ class LanguageTeX(Language, DefaultTeX):
         return proc.stdout.read().decode()
 
     def symbol_table(self, arg) -> str:
-        rows: str = ",".join([self.clear(x) for x in arg[0]])
-        columns: str = ",".join([self.clear(x) for x in arg[1]])
+        rows: str = ",".join([x[0] for x in arg[0] if isinstance(x, list)])
+        columns: str = ",".join([x[0] for x in arg[1] if isinstance(x, list)])
         proc = subprocess.Popen(
             ["build/language", "table", rows, columns],
             stdout=subprocess.PIPE,
         )
         return proc.stdout.read().decode()
-        
+
 
 if __name__ == "__main__":
     main(sys.argv[1:], Language)
