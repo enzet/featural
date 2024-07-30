@@ -29,6 +29,47 @@ class LanguageTeX(Language, DefaultTeX):
         s += "\\end {document}"
         return s
 
+    def figure(self, arg) -> str:
+        s = "\\begin{figure}[h!]\n"
+        s += self.parse(arg[1])
+        s += f"\\caption{{{self.parse(arg[0])}}}"
+        s += "\\end{figure}"
+        return s
+
+    def table(self, arg) -> str:
+        s = dedent(
+            """\
+            \\begin{table}[h]
+            \\begin{center}
+            \\begin{tabular}{|"""
+        )
+        max_tds = 0
+        for tr in arg[1:]:
+            if isinstance(tr, list):
+                tds = sum([1 for td in tr if isinstance(td, list)])
+                max_tds = max(max_tds, tds)
+        for k in range(max_tds):
+            s += "c|"
+        s += "}\n\\hline\n"
+        for tr in arg[1:]:
+            if isinstance(tr, list):
+                tds = []
+                for td in tr:
+                    if isinstance(td, list):
+                        tds.append(td)
+                for td in tds[:-1]:
+                    s += self.parse(td) + " & "
+                s += self.parse(tds[-1])
+                s += " \\\\\n\\hline\n"
+        s += dedent(
+            f"""\
+            \\end{{tabular}}
+            \\caption{{{self.parse(arg[0])}}}
+            \\end{{center}}
+            \\end{{table}}"""
+        )
+        return s
+
     def ipa(self, arg) -> str:
         return f"{{\\doulos{{{self.parse(arg[0])}}}}}"
 

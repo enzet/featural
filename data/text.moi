@@ -149,33 +149,82 @@ We use simple notation to encode symbols using graphical elements:
     {Double line (\m {2}),}
     {Short line (\m {s}).}
 
-\table
-    {{7} {\symbol {ht /}}}
-    {{C} {\symbol {vlo hto hbo}}}
-    {{D} {\symbol {vl ht hb vro}}}
-    {{E} {\symbol {vl ht hc hb}}}
-    {{F} {\symbol {vl ht hc}}}
-    {{H} {\symbol {vl vr hc}}}
-    {{I} {\symbol {vc}}}
-    {{J} {\symbol {vr hbo}}}
-    {{L} {\symbol {vl hb}}}
-    {{N} {\symbol {vl \\ vr}}}
-    {{O} {\symbol {vlo vro hbo hto}}}
-    {{S} {\symbol {hto hbo \\ }}}
-    {{T} {\symbol {vc ht}}}
-    {{U} {\symbol {vl vr hbo}}}
-    {{X} {\symbol {/ \\ }}}
-    {{Z} {\symbol {hb / ht}}}
-    {{Г} {\symbol {vl ht}}}
-    {{П} {\symbol {vl vr ht}}}
-    {{Ш} {\symbol {vl vc vr hb}}}
+For example, the expression \m {vl hb} encodes the symbol \symbol {vl hb} and
+means ``vertical (\m {v}) left (\m {l})  line \symbol {vl} combined with
+horizontal (\m {h}) bottom (\m {b}) line \symbol {hb}''.
+
+\3 {Element combination} {fpa_combination}
+
+Symbols in the proposed system can be constructed either by overlaying the
+symbol elements or by modifying them to connect more fluidly. These
+modifications allow the symbols to appear more cohesive and natural, enhancing
+legibility and making them easier to write by hand. This approach balances
+systematic construction with practical usability, resulting in a writing system
+that is both functional and visually appealing.
+
+\3 {Relations to the existing symbols} {fpa_existing}
 
 \table
-    {{M} {\symbol {vl htI vr}}}
-    {{Y} {\symbol {htI vc}}}
+    {Modeling numbers}
+    {{Existing symbol} {2} {7}}
+    {{Proposed system} {\symbol {hto / hb}} {\symbol {ht /}}}
+
+\table
+    {Modeling Latin symbols}
+    {
+        {Existing symbol} {C} {D} {E} {F} {H} {I} {J} {L} {N} {O} {S} {T} {U}
+        {X} {Z}
+    }
+    {
+        {Proposed system}
+        {\symbol {vlo hto hbo}}
+        {\symbol {vl ht hb vro}}
+        {\symbol {vl ht hc hb}}
+        {\symbol {vl ht hc}}
+        {\symbol {vl vr hc}}
+        {\symbol {vc}}
+        {\symbol {vr hbo}}
+        {\symbol {vl hb}}
+        {\symbol {vl \\ vr}}
+        {\symbol {vlo vro hbo hto}}
+        {\symbol {hto hbo \\ }}
+        {\symbol {vc ht}}
+        {\symbol {vl vr hbo}}
+        {\symbol {/ \\ }}
+        {\symbol {hb / ht}}
+    }
+
+\table
+    {Modeling Cyrillic symbols}
+    {{Existing symbol} {Г} {Ж} {И} {П} {Ш} {Э}}
+    {
+        {Proposed system}
+        {\symbol {vl ht}}
+        {\symbol {/ vc \\ }}
+        {\symbol {vl / vr}}
+        {\symbol {vl vr ht}}
+        {\symbol {vl vc vr hb}}
+        {\symbol {hto hbo hc vr}}
+    }
+
+Several existing symbols cannot be recreated precisely, but can still be recognizable.
+
+\table
+    {Modeling other symbols}
+    {{Existing symbol} {A} {M} {Y} {У} {Ф} {Ч}}
+    {
+        {Proposed system}
+        {\symbol {vl hto hc vr}}
+        {\symbol {vl htI vr}}
+        {\symbol {htI vc}}
+        {\symbol {hti vr hbo}}
+        {\symbol {vlo vc vro ht hb}}
+        {\symbol {hti vr}}
+    }
 
 \1 {Comparison with IPA} {ipa_comparison}
 
+\figure {Modeling numbers} {
 \symbol_table
     {
         {labial}
@@ -209,4 +258,5 @@ We use simple notation to encode symbols using graphical elements:
         {lateral_approximant;voiceless}
         {lateral_approximant;voiced}
     }
+}
 
