@@ -6,7 +6,26 @@ import sys
 
 
 class Language(Default):
-    pass
+    def figure(self, arg) -> str:
+        raise NotImplementedError()
+
+    def tex_ref(self, arg) -> str:
+        raise NotImplementedError()
+
+    def table(self, arg) -> str:
+        raise NotImplementedError()
+
+    def ipa(self, arg) -> str:
+        raise NotImplementedError()
+
+    def ko(self, arg) -> str:
+        raise NotImplementedError()
+
+    def symbol(self, arg) -> str:
+        raise NotImplementedError()
+
+    def symbol_table(self, arg) -> str:
+        raise NotImplementedError()
 
 
 class LanguageTeX(Language, DefaultTeX):
@@ -95,30 +114,8 @@ class LanguageTeX(Language, DefaultTeX):
 
 
 class LanguageMarkdown(Language, DefaultMarkdown):
-    def author(self, arg) -> str:
-        return ""
-
-    def abstract(self, arg) -> str:
-        return self.parse(arg[0])
-
     def ipa(self, arg) -> str:
         return f"{{\\doulos{{{self.parse(arg[0])}}}}}"
-
-    def symbol(self, arg) -> str:
-        proc = subprocess.Popen(
-            ["build/language", "symbol"] + self.clear(arg[0]).split(" "),
-            stdout=subprocess.PIPE,
-        )
-        return proc.stdout.read().decode()
-
-    def symbol_table(self, arg) -> str:
-        rows: str = ",".join([x[0] for x in arg[0]])
-        columns: str = ",".join([x[0] for x in arg[1]])
-        proc = subprocess.Popen(
-            ["build/language", "table", rows, columns],
-            stdout=subprocess.PIPE,
-        )
-        return proc.stdout.read().decode()
 
 
 if __name__ == "__main__":
