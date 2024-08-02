@@ -30,3 +30,4 @@ python python/moire_converter.py \
 # Construct PDF file.
 cd out
 xelatex text.tex
+xelatex text.tex
