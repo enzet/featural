@@ -150,17 +150,16 @@ We use simple notation to encode symbols using graphical elements:
     {Short line (\m {s}).}
 
 For example, the expression \m {vl hb} encodes the symbol \symbol {vl hb} and
-means ``vertical (\m {v}) left (\m {l})  line \symbol {vl} combined with
-horizontal (\m {h}) bottom (\m {b}) line \symbol {hb}''.
+means “vertical (\m {v}) left (\m {l})  line \symbol {vl} combined with
+horizontal (\m {h}) bottom (\m {b}) line \symbol {hb}”.
 
 \3 {Element combination} {featural_combination}
 
-Symbols in the proposed system can be constructed either by overlaying the
-symbol elements or by modifying them to connect more fluidly. These
-modifications allow the symbols to appear more cohesive and natural, enhancing
-legibility and making them easier to write by hand. This approach balances
-systematic construction with practical usability, resulting in a writing system
-that is both functional and visually appealing.
+Symbols system can be constructed either by overlaying the symbol elements or by
+modifying them to connect more fluidly. These modifications allow the symbols to
+appear more cohesive and natural, enhancing legibility and making them easier to
+write by hand. We try to make element connections looks similar to what we can
+find in existing writing systems.
 
 \3 {Relations to the existing symbols} {featural_existing}
 
@@ -207,7 +206,77 @@ that is both functional and visually appealing.
         {\symbol {hto hbo hc vr}}
     }
 
-Several existing symbols cannot be recreated precisely, but can still be recognizable.
+\table
+    {Modeling Hangul symbols for consonants}
+    {
+        {Existing symbol}
+        {\ko {ㄱ}}
+        {\ko {ㄴ}}
+        {\ko {ㄷ}}
+        {\ko {ㅁ}}
+        {\ko {ㅂ}}
+        {\ko {ㅇ}}
+        {\ko {ㅋ}}
+        {\ko {ㅌ}}
+        {\ko {ㅍ}}
+    }
+    {
+        {Proposed system}
+        {\symbol {ht vr}}
+        {\symbol {hb vl}}
+        {\symbol {ht hb vl}}
+        {\symbol {ht hb vl vr}}
+        {\symbol {vl vr hb hc}}
+        {\symbol {vlo vro hbo hto}}
+        {\symbol {ht hc vr}}
+        {\symbol {vl hb hc ht}}
+        {\symbol {vc2 hb ht}}
+    }
+
+\table
+    {Modeling Hangul symbols for vowels}
+    {
+        {Existing symbol}
+
+        {\ko {ㅏ}}
+        {\ko {ㅐ}}
+        {\ko {ㅑ}}
+        {\ko {ㅒ}}
+        {\ko {ㅓ}}
+        {\ko {ㅔ}}
+        {\ko {ㅕ}}
+        {\ko {ㅖ}}
+        {\ko {ㅗ}}
+        {\ko {ㅛ}}
+        {\ko {ㅜ}}
+        {\ko {ㅠ}}
+    }
+    {
+        {Proposed system}
+        {\symbol {vl hc}}
+        {\symbol {vl hc vr}}
+        {\symbol {vl hc2}}
+        {\symbol {vl hc2 vr}}
+        {\symbol {hc vr}}
+        {\symbol {hc vr2}}
+        {\symbol {hc2 vr}}
+        {\symbol {hc2 vr2}}
+        {\symbol {vc hb}}
+        {\symbol {vc2 hb}}
+        {\symbol {ht vc}}
+        {\symbol {ht vc2}}
+    }
+
+\table
+    {Modeling Myanmar symbols}
+    {{Existing symbol} {လ}}
+    {
+        {Proposed system}
+        {\symbol {vlo \\ vro}}
+    }
+
+Several existing symbols cannot be recreated precisely, but can still be
+recognizable.
 
 \table
     {Modeling other symbols}

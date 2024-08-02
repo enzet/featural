@@ -20,6 +20,7 @@ class LanguageTeX(Language, DefaultTeX):
             \\usepackage[left=1.25in,right=1.25in,top=1in,bottom=1in]{geometry}
             \\setmainfont[Ligatures=TeX]{CMU Serif}
             \\newfontface\\doulos{Doulos SIL}
+            \\newfontface\\ko{Noto Sans KR}
             \\usetikzlibrary{positioning}
             \\begin{document}
             """
@@ -29,7 +30,8 @@ class LanguageTeX(Language, DefaultTeX):
         return s
 
     def figure(self, arg) -> str:
-        s = "\\begin{figure}[h!]\n"
+        s = "\\begin{figure}[h]\n"
+        s += "\\centering\n"
         s += self.parse(arg[1])
         s += f"\\caption{{{self.parse(arg[0])}}}"
         s += "\\end{figure}"
@@ -71,6 +73,9 @@ class LanguageTeX(Language, DefaultTeX):
 
     def ipa(self, arg) -> str:
         return f"{{\\doulos{{{self.parse(arg[0])}}}}}"
+
+    def ko(self, arg) -> str:
+        return f"{{\\ko{{{self.parse(arg[0])}}}}}"
 
     def symbol(self, arg) -> str:
         proc = subprocess.Popen(
