@@ -163,12 +163,21 @@ find in existing writing systems.
 
 \3 {Relations to the existing symbols} {featural_existing}
 
+The use of basic geometric forms, common in many existing writing systems,
+facilitates easier learning and reproduction of the symbols.
+
+The proposed system can be used to model symbols from naturally evolved
+alphabets. Table \tex_ref {tbl:model_latin} shows symbols from Latin alphabet.
+Or Cyrillic (see table \tex_ref {tbl:model_cyrillic}).
+
 \table
+    {tbl:model_number}
     {Modeling numbers}
     {{Existing symbol} {2} {7}}
     {{Proposed system} {\symbol {hto / hb}} {\symbol {ht /}}}
 
 \table
+    {tbl:model_latin}
     {Modeling Latin symbols}
     {
         {Existing symbol} {C} {D} {E} {F} {H} {I} {J} {L} {N} {O} {S} {T} {U}
@@ -194,6 +203,7 @@ find in existing writing systems.
     }
 
 \table
+    {tbl:model_cyrillic}
     {Modeling Cyrillic symbols}
     {{Existing symbol} {Г} {Ж} {И} {П} {Ш} {Э}}
     {
@@ -207,6 +217,7 @@ find in existing writing systems.
     }
 
 \table
+    {tbl:model_hangulc}
     {Modeling Hangul symbols for consonants}
     {
         {Existing symbol}
@@ -234,6 +245,7 @@ find in existing writing systems.
     }
 
 \table
+    {tbl:model_hangulv}
     {Modeling Hangul symbols for vowels}
     {
         {Existing symbol}
@@ -268,6 +280,7 @@ find in existing writing systems.
     }
 
 \table
+    {tbl:model_myanmar}
     {Modeling Myanmar symbols}
     {{Existing symbol} {လ}}
     {
@@ -279,6 +292,7 @@ Several existing symbols cannot be recreated precisely, but can still be
 recognizable.
 
 \table
+    {tbl:model_other}
     {Modeling other symbols}
     {{Existing symbol} {A} {M} {Y} {У} {Ф} {Ч}}
     {

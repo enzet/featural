@@ -55,6 +55,9 @@ class LanguageTeX(Language, DefaultTeX):
         s += "\\end{figure}"
         return s
 
+    def tex_ref(self, arg) -> str:
+        return f"\\ref{{{arg[0][0]}}}"
+
     def table(self, arg) -> str:
         s = dedent(
             """\
@@ -63,14 +66,14 @@ class LanguageTeX(Language, DefaultTeX):
             \\begin{tabular}{|"""
         )
         max_tds = 0
-        for tr in arg[1:]:
+        for tr in arg[2:]:
             if isinstance(tr, list):
                 tds = sum([1 for td in tr if isinstance(td, list)])
                 max_tds = max(max_tds, tds)
         for k in range(max_tds):
             s += "c|"
         s += "}\n\\hline\n"
-        for tr in arg[1:]:
+        for tr in arg[2:]:
             if isinstance(tr, list):
                 tds = []
                 for td in tr:
@@ -83,7 +86,8 @@ class LanguageTeX(Language, DefaultTeX):
         s += dedent(
             f"""\
             \\end{{tabular}}
-            \\caption{{{self.parse(arg[0])}}}
+            \\caption{{{self.parse(arg[1])}}}
+            \\label{{{arg[0][0]}}}
             \\end{{center}}
             \\end{{table}}"""
         )
