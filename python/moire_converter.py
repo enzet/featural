@@ -33,7 +33,6 @@ class LanguageTeX(Language, DefaultTeX):
         s = dedent(
             """\
             \\documentclass{article}
-            \\usepackage[utf8]{inputenc}
             \\usepackage{tikz}
             \\usepackage{fontspec}
             \\usepackage[left=1.25in,right=1.25in,top=1in,bottom=1in]{geometry}
@@ -49,7 +48,7 @@ class LanguageTeX(Language, DefaultTeX):
         return s
 
     def figure(self, arg) -> str:
-        s = "\\begin{figure}[h]\n"
+        s = "\\begin{figure}[ht]\n"
         s += "\\centering\n"
         s += self.parse(arg[1])
         s += f"\\caption{{{self.parse(arg[0])}}}"
@@ -59,7 +58,7 @@ class LanguageTeX(Language, DefaultTeX):
     def table(self, arg) -> str:
         s = dedent(
             """\
-            \\begin{table}[h]
+            \\begin{table}[ht]
             \\begin{center}
             \\begin{tabular}{|"""
         )
