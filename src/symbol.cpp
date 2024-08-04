@@ -99,8 +99,34 @@ void Element::add(ElementDescriptor elementDescriptor) {
     }
 }
 
+inline float parseFloat(std::string floatValue) {
+    return std::stof(floatValue);
+}
+
+inline bool parseBool(std::string boolValue) {
+    return boolValue == "+";
+}
+
+SymbolStyle::SymbolStyle(std::vector<std::string> descriptions) {
+    for (std::string description : descriptions) {
+
+        std::vector<std::string> keyValue = split(description, '=');
+        std::string key = keyValue[0];
+        std::string value = keyValue[1];
+
+        if (key == "w") {
+            lineWidth = parseFloat(value);
+        } else if (key == "sc") {
+            shiftByCurved = parseBool(value);
+        } else if (key == "cd") {
+            curveDiagonal = parseBool(value);
+        }
+    }
+}
+
 void Element::draw(
     Painter* painter,
+    SymbolStyle style,
     Vector center,
     float size,
     Vector step,
@@ -108,6 +134,9 @@ void Element::draw(
 
     Vector a = getNorm();
     Vector b = direction;
+
+    std::string tikzStyle
+        = "line cap=round, line width=" + std::to_string(style.lineWidth);
 
     if (isCurved) {
 
@@ -119,8 +148,7 @@ void Element::draw(
         // Line.
         Vector start = step + b * (1 - CURVE_SIZE);
         Vector end = step - b * (1 - CURVE_SIZE);
-        painter->line(
-            center + start * size, center + end * size, "line cap=round");
+        painter->line(center + start * size, center + end * size, tikzStyle);
 
         // Curve.
         Vector p = step + b;
@@ -133,7 +161,7 @@ void Element::draw(
             center + p2 * size,
             center + p3 * size,
             center + p4 * size,
-            "line cap=round");
+            tikzStyle);
 
         // Curve.
         p = step - b;
@@ -146,7 +174,7 @@ void Element::draw(
             center + p2 * size,
             center + p3 * size,
             center + p4 * size,
-            "line cap=round");
+            tikzStyle);
 
     } else if (isPointed) {
 
@@ -233,7 +261,7 @@ void Element::draw(
             center + p2 * size,
             center + p3 * size,
             center + p4 * size,
-            "line cap=round");
+            tikzStyle);
     }
 }
 
@@ -242,18 +270,24 @@ void Element::draw(
  */
 void Element::draw(
     Painter* painter,
+    SymbolStyle style,
     Vector center,
     float size,
     std::vector<Element> elements) {
 
     if (this->isDouble and position == 0) {
-        draw(painter, center, size, getNorm() * 0.3f, elements);
-        draw(painter, center, size, getNorm() * -1 * 0.3f, elements);
+        draw(painter, style, center, size, getNorm() * 0.3f, elements);
+        draw(painter, style, center, size, getNorm() * -1 * 0.3f, elements);
     } else {
-        draw(painter, center, size, getNorm() * 1.0f, elements);
+        draw(painter, style, center, size, getNorm() * 1.0f, elements);
         if (this->isDouble) {
             draw(
-                painter, center, size, getNorm() * (1 - DOUBLE_SIZE), elements);
+                painter,
+                style,
+                center,
+                size,
+                getNorm() * (1 - DOUBLE_SIZE),
+                elements);
         }
     }
 }
@@ -277,10 +311,11 @@ void Symbol::add(Element element) {
     elements.push_back(element);
 }
 
-void Symbol::draw(Painter* painter, Vector center, float size) {
+void Symbol::draw(
+    Painter* painter, SymbolStyle style, Vector center, float size) {
 
     for (Element element : elements) {
-        element.draw(painter, center, size, elements);
+        element.draw(painter, style, center, size, elements);
     }
 }
 
@@ -318,6 +353,24 @@ parseGraphs(const std::string& path) {
     return graphs;
 }
 
+std::pair<Symbol, SymbolStyle>
+parseSymbolParameters(std::vector<std::string> parameters) {
+
+    std::vector<std::string> symbolParameters;
+    std::vector<std::string> styleParameters;
+
+    for (std::string parameter : parameters) {
+        if (parameter.find('=') != std::string::npos) {
+            styleParameters.push_back(parameter);
+        } else {
+            symbolParameters.push_back(parameter);
+        }
+    }
+    std::pair<Symbol, SymbolStyle> pair {
+        Symbol(symbolParameters), SymbolStyle(styleParameters)};
+    return pair;
+}
+
 void drawTikz(
     Painter* painter,
     std::string ipaSymbol,
@@ -335,8 +388,10 @@ void drawTikz(
         return;
     }
 
-    Symbol symbol = Symbol(reprs);
-    symbol.draw(painter, center + Vector(0.5, 0), 0.1f);
+    std::pair<Symbol, SymbolStyle> pair = parseSymbolParameters(reprs);
+    Symbol symbol = pair.first;
+    SymbolStyle style = pair.second;
+    symbol.draw(painter, style, center + Vector(0.5, 0), 0.1f);
 }
 
 void IpaSymbols::add(std::string parameters, std::string ipaSymbol) {

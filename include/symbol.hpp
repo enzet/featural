@@ -37,6 +37,17 @@ enum class ElementDescriptor {
 /* Sort parameters sequence separated by `;`. */
 std::string sortParameters(std::string parameters);
 
+/* Style of a symbol. */
+class SymbolStyle {
+
+public:
+    float lineWidth = 0.4f;
+    bool shiftByCurved;
+    bool curveDiagonal;
+
+    SymbolStyle(std::vector<std::string> description);
+};
+
 /*
  * Symbol element.
  *
@@ -69,6 +80,7 @@ public:
     void add(ElementDescriptor elementDescriptor);
     void draw(
         Painter* painter,
+        SymbolStyle style,
         Vector center,
         float size,
         Vector step,
@@ -77,6 +89,7 @@ public:
     /* Draw symbol element. */
     void draw(
         Painter* painter,
+        SymbolStyle style,
         Vector center,
         float size,
         std::vector<Element> elements);
@@ -90,11 +103,14 @@ public:
 class Symbol {
 
     std::vector<Element> elements;
+    void add(Element element);
 
 public:
+    /* Construct symbol from the string representation. */
     Symbol(std::vector<std::string> reprs);
-    void add(Element element);
-    void draw(Painter* painter, Vector center, float size);
+
+    /* Get graphical representation of the symbol. */
+    void draw(Painter* painter, SymbolStyle style, Vector center, float size);
 };
 
 /*
@@ -122,6 +138,9 @@ static std::unordered_map<char, ElementDescriptor> const descriptorMap
 
 /* Convert graphical element text representation into element descriptor. */
 ElementDescriptor getElementDescriptor(char elementRepr);
+
+std::pair<Symbol, SymbolStyle>
+parseSymbolParameters(std::vector<std::string> parameters);
 
 /*
  * Parse graphs file.

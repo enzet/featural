@@ -51,8 +51,11 @@ void drawTable(
 
 void drawSymbol(std::vector<std::string> parameters) {
     Painter* painter = new TikzPainter("out/ipa_table.tex");
-    Symbol symbol = Symbol(parameters);
-    symbol.draw(painter, Vector(0, 0), 0.1f);
+
+    std::pair<Symbol, SymbolStyle> pair = parseSymbolParameters(parameters);
+    Symbol symbol = pair.first;
+    SymbolStyle style = pair.second;
+    symbol.draw(painter, style, Vector(0, 0), 0.1f);
     painter->end();
     std::cout << painter->getString();
 }
