@@ -123,6 +123,11 @@ SymbolStyle::SymbolStyle(std::vector<std::string> descriptions) {
 
         if (key == "w") {
             lineWidth = parseFloat(value);
+        } else if (key == "z") {
+            zoom = parseFloat(value);
+        } else if (key == "m") {
+            curveDiagonal = parseBool(value);
+            shiftByCurved = parseBool(value);
         } else if (key == "sc") {
             shiftByCurved = parseBool(value);
         } else if (key == "cd") {
@@ -142,8 +147,10 @@ void Element::draw(
     Vector a = getNorm();
     Vector b = direction;
 
+    // Apply style.
     std::string tikzStyle
         = "line cap=round, line width=" + std::to_string(style.lineWidth);
+    size *= style.zoom;
 
     if (isCurved) {
 
@@ -230,6 +237,7 @@ void Element::draw(
                 // Shift point if element is no the edge, orthogonal to the
                 // curved element, and curved inwards.
                 if ((step.x == 1 or step.x == -1 or step.y == 1 or step.y == -1)
+                    and style.shiftByCurved
                     and getNorm().isGridParallelTo(element.direction)
                     and not element.isInwards) {
                     // Shift point.
@@ -242,22 +250,28 @@ void Element::draw(
                     }
                 }
 
-                // Shift and curve diagnoal elements.
+                // Shift and curve diagonal elements.
                 if (isDiagonal) {
                     if (element.getPoint1() == p1
                         or element.getPoint2() == p1) {
 
-                        if (not element.isInwards) {
+                        if (not element.isInwards and style.shiftByCurved) {
                             p1 = p1 + element.getNorm() * -CURVE_SIZE;
+                            p2 = p2 + element.getNorm() * -CURVE_SIZE;
                         }
-                        p2 = p2 + element.getNorm() * -CURVE_SIZE * 3;
+                        if (style.curveDiagonal) {
+                            p2 = p2 + element.getNorm() * -CURVE_SIZE * 2;
+                        }
                     }
                     if (element.getPoint1() == p4
                         or element.getPoint2() == p4) {
 
-                        p3 = p3 + element.getNorm() * -CURVE_SIZE * 3;
-                        if (not element.isInwards) {
+                        if (style.curveDiagonal) {
+                            p3 = p3 + element.getNorm() * -CURVE_SIZE * 2;
+                        }
+                        if (not element.isInwards and style.shiftByCurved) {
                             p4 = p4 + element.getNorm() * -CURVE_SIZE;
+                            p3 = p3 + element.getNorm() * -CURVE_SIZE;
                         }
                     }
                 }

@@ -42,8 +42,9 @@ class SymbolStyle {
 
 public:
     float lineWidth = 0.4f;
-    bool shiftByCurved;
-    bool curveDiagonal;
+    float zoom = 1.0f;
+    bool shiftByCurved = true;
+    bool curveDiagonal = true;
 
     SymbolStyle(std::vector<std::string> description);
 };
