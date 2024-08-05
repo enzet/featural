@@ -39,6 +39,7 @@ class LanguageTeX(Language, DefaultTeX):
             \\setmainfont[Ligatures=TeX]{CMU Serif}
             \\newfontface\\doulos{Doulos SIL}
             \\newfontface\\ko{Noto Sans KR}
+            \\def\\arraystretch{1.3}
             \\usetikzlibrary{positioning}
             \\begin{document}
             """
