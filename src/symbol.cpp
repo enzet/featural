@@ -104,7 +104,14 @@ inline float parseFloat(std::string floatValue) {
 }
 
 inline bool parseBool(std::string boolValue) {
-    return boolValue == "+";
+    if (boolValue == "+") {
+        return true;
+    }
+    if (boolValue == "-") {
+        return false;
+    }
+    throw std::invalid_argument(
+        "Unknown Boolean value: `" + boolValue + "`, should be `+` or `-`.");
 }
 
 SymbolStyle::SymbolStyle(std::vector<std::string> descriptions) {
