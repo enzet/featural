@@ -51,11 +51,9 @@ The proposed system is based on several key design principles.
 
 \2 {Feature-Based Construction} {featural_construction}
 
-Symbols are constructed from elements that represent phonological features.
-These elements include vertical, horizontal, and diagonal lines, as well as arcs
-and simple curves. The use of such basic geometric forms, common in many
-existing writing systems, facilitates easier learning and reproduction of the
-symbols.
+We want symbols to be constructed from graphical elements, that include
+vertical, horizontal, and diagonal lines, as well as arcs, curves and their
+combinations.
 
 For consonants, the proposed system designs symbols using vertical and
 horizontal elements to clearly convey phonological features. Vertical elements
@@ -127,7 +125,7 @@ graphical elements corresponding to different phonological features. By
 combining these elements according to the specified features of each phoneme,
 the program produces unique symbols for each sound.
 
-\2 {Initial Settings} {featural_settings}
+\2 {Notation} {featural_notation}
 
 The initial settings define the graphical representation for each phonological
 feature.
@@ -230,7 +228,25 @@ Or Cyrillic (see table \tex_ref {tbl:model_cyrillic}).
         {X} {Z}
     }
     {
-        {Proposed system}
+        {Without modifications}
+        {\symbol {vlo hto hbo m=-}}
+        {\symbol {vl ht hb vro m=-}}
+        {\symbol {vl ht hc hb m=-}}
+        {\symbol {vl ht hc m=-}}
+        {\symbol {vl vr hc m=-}}
+        {\symbol {vc m=-}}
+        {\symbol {vr hbo m=-}}
+        {\symbol {vl hb m=-}}
+        {\symbol {vl \\ vr m=-}}
+        {\symbol {vlo vro hbo hto m=-}}
+        {\symbol {hto hbo \\  m=-}}
+        {\symbol {vc ht m=-}}
+        {\symbol {vl vr hbo m=-}}
+        {\symbol {/ \\  m=-}}
+        {\symbol {hb / ht m=-}}
+    }
+    {
+        {With modifications}
         {\symbol {vlo hto hbo}}
         {\symbol {vl ht hb vro}}
         {\symbol {vl ht hc hb}}
