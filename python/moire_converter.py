@@ -77,21 +77,22 @@ class LanguageTeX(Language, DefaultTeX):
         return f"\\ref{{{arg[0][0]}}}"
 
     def table(self, arg) -> str:
+        max_tds: int = 0
+        for tr in arg[2:]:
+            if isinstance(tr, list):
+                tds = sum([1 for td in tr if isinstance(td, list)])
+                max_tds = max(max_tds, tds)
+
         s = dedent(
             """\
             \\begin{table}[ht]
             \\begin{center}
             \\begin{tabular}{|"""
+            + "|".join(["l"] * max_tds)
+            + "|}\n"
         )
-        max_tds = 0
-        for tr in arg[2:]:
-            if isinstance(tr, list):
-                tds = sum([1 for td in tr if isinstance(td, list)])
-                max_tds = max(max_tds, tds)
-        for k in range(max_tds):
-            s += "c|"
-        s += "}\n\\hline\n"
-        for tr in arg[2:]:
+        s += "\\hline\n"
+        for index, tr in enumerate(arg[2:]):
             if isinstance(tr, list):
                 tds = []
                 for td in tr:
@@ -100,7 +101,8 @@ class LanguageTeX(Language, DefaultTeX):
                 for td in tds[:-1]:
                     s += self.parse(td) + " & "
                 s += self.parse(tds[-1])
-                s += " \\\\\n\\hline\n"
+                s += " \\\\\n"
+                s += "\\hline\n"
         s += dedent(
             f"""\
             \\end{{tabular}}
