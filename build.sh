@@ -11,8 +11,8 @@ rm -rf ${OUTPUT_DIRECTORY}
 set -e
 
 # Check code style.
-clang-format --dry-run --Werror src/main.cpp
-black --check --line-length 80 python/main.py
+clang-format --dry-run --Werror src/*.cpp include/*.hpp
+black --check --line-length 80 python/main.py python/moire_converter.py
 
 # Configure C++ code.
 mkdir -p ${BUILD_DIRECTORY}
