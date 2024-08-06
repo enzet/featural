@@ -5,6 +5,9 @@ import subprocess
 import sys
 
 
+SYMBOL_GENERATOR_EXECUTABLE: str = "build/language"
+
+
 class Language(Default):
     def figure(self, arg) -> str:
         raise NotImplementedError()
@@ -16,9 +19,11 @@ class Language(Default):
         raise NotImplementedError()
 
     def ipa(self, arg) -> str:
+        """IPA symbol."""
         raise NotImplementedError()
 
     def ko(self, arg) -> str:
+        """Korean text symbol."""
         raise NotImplementedError()
 
     def symbol(self, arg) -> str:
@@ -48,11 +53,17 @@ class LanguageTeX(Language, DefaultTeX):
         s += "\\end {document}"
         return s
 
+    def tikz(self, arg) -> str:
+        return (
+            "\\begin{tikzpicture}" + self.parse(arg[0]) + "\\end{tikzpicture}"
+        )
+
     def figure(self, arg) -> str:
         s = "\\begin{figure}[ht]\n"
         s += "\\centering\n"
-        s += self.parse(arg[1])
-        s += f"\\caption{{{self.parse(arg[0])}}}"
+        s += self.parse(arg[2])
+        s += f"\\caption{{{self.parse(arg[1])}}}"
+        s += f"\\label{{{arg[0][0]}}}"
         s += "\\end{figure}"
         return s
 
@@ -101,17 +112,18 @@ class LanguageTeX(Language, DefaultTeX):
         return f"{{\\ko{{{self.parse(arg[0])}}}}}"
 
     def symbol(self, arg) -> str:
-        proc = subprocess.Popen(
-            ["build/language", "symbol"] + self.clear(arg[0]).split(" "),
+        proc: subprocess.Popen = subprocess.Popen(
+            [SYMBOL_GENERATOR_EXECUTABLE, "symbol"]
+            + self.clear(arg[0]).split(" "),
             stdout=subprocess.PIPE,
         )
         return proc.stdout.read().decode()
 
     def symbol_table(self, arg) -> str:
-        rows: str = ",".join([x[0] for x in arg[0] if isinstance(x, list)])
-        columns: str = ",".join([x[0] for x in arg[1] if isinstance(x, list)])
-        proc = subprocess.Popen(
-            ["build/language", "table", rows, columns],
+        rows: str = ",".join([x[0] for x in arg[0]])
+        columns: str = ",".join([x[0] for x in arg[1]])
+        proc: subprocess.Popen = subprocess.Popen(
+            [SYMBOL_GENERATOR_EXECUTABLE, "table", rows, columns],
             stdout=subprocess.PIPE,
         )
         return proc.stdout.read().decode()
