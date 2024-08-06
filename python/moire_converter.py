@@ -50,7 +50,13 @@ class LanguageTeX(Language, DefaultTeX):
             """
         )
         s += self.parse(arg[0], in_block=True)
-        s += "\\end {document}"
+        s += dedent(
+            """
+            \\listoffigures
+            \\listoftables
+            \\end {document}
+            """
+        )
         return s
 
     def tikz(self, arg) -> str:
