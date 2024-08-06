@@ -111,13 +111,16 @@ class LanguageTeX(Language, DefaultTeX):
     def ko(self, arg) -> str:
         return f"{{\\ko{{{self.parse(arg[0])}}}}}"
 
-    def symbol(self, arg) -> str:
+    def tikz_symbol(self, arg) -> str:
         proc: subprocess.Popen = subprocess.Popen(
             [SYMBOL_GENERATOR_EXECUTABLE, "symbol"]
             + self.clear(arg[0]).split(" "),
             stdout=subprocess.PIPE,
         )
         return proc.stdout.read().decode()
+
+    def symbol(self, arg) -> str:
+        return "\\tikz{" + self.tikz_symbol(arg) + "}"
 
     def symbol_table(self, arg) -> str:
         rows: str = ",".join([x[0] for x in arg[0]])

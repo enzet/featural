@@ -103,6 +103,11 @@ inline float parseFloat(std::string floatValue) {
     return std::stof(floatValue);
 }
 
+inline Vector parseVector(std::string vectorValue) {
+    std::vector<std::string> coordinates = split(vectorValue, ',');
+    return Vector(parseFloat(coordinates[0]), parseFloat(coordinates[1]));
+}
+
 inline bool parseBool(std::string boolValue) {
     if (boolValue == "+") {
         return true;
@@ -123,6 +128,8 @@ SymbolStyle::SymbolStyle(std::vector<std::string> descriptions) {
 
         if (key == "w") {
             lineWidth = parseFloat(value);
+        } else if (key == "p") {
+            position = parseVector(value);
         } else if (key == "z") {
             zoom = parseFloat(value);
         } else if (key == "m") {
@@ -151,6 +158,7 @@ void Element::draw(
     std::string tikzStyle
         = "line cap=round, line width=" + std::to_string(style.lineWidth);
     size *= style.zoom;
+    center = center + style.position;
 
     if (isCurved) {
 

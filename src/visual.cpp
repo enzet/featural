@@ -6,7 +6,6 @@
 #include "visual.hpp"
 
 TikzPainter::TikzPainter(std::string path) {
-    stream << "\\begin{tikzpicture}" << std::endl;
 }
 
 std::string TikzPainter::getString() {
@@ -14,7 +13,6 @@ std::string TikzPainter::getString() {
 }
 
 void TikzPainter::end() {
-    stream << "\\end{tikzpicture}" << std::endl;
 }
 
 /* Draw line between two points. */

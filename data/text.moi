@@ -161,6 +161,52 @@ appear more cohesive and natural, enhancing legibility and making them easier to
 write by hand. We try to make element connections looks similar to what we can
 find in existing writing systems.
 
+Figure \tex_ref {fgr:modifications} shows how modifications work for symbol
+\m {hto / hbo}.
+
+\figure {fgr:modifications} {Modifications} {\tikz {
+
+    \\tikzset\{nd/.style=\{circle, minimum size=1cm\}\}
+
+    \tikz_symbol {hto / hbo z=2 m=- p=0,0}
+    \tikz_symbol {hto / hbo z=2 m=- cd=+ p=-1,-1}
+    \tikz_symbol {hto / hbo z=2 m=- sc=+ p=1,-1}
+    \tikz_symbol {hto / hbo z=2 m=- sc=+ cd=+ p=0,-2}
+
+    \\node[nd, label=\{[align=center]above:No modifications\\\\
+        \m {hto / hbo m=-}\}] at (0,0) (no) \{\};
+    \\node[nd, label=\{[align=right]left:Curve diagonal\\\\
+        \m {hto / hbo m=- cd=+}\}] at (-1,-1) (cd) \{\};
+    \\node[nd, label=\{[align=left]right:Shift by curved\\\\
+        \m {hto / hbo m=- sc=+}\}] at (1,-1) (sc) \{\};
+    \\node[nd, label=\{[align=center]below:Both modifications\\\\
+        \m {hto / hbo m=- cd=+ sc=+}\}] at (0,-2) (all) \{\};
+
+    \\draw [->] (no) -- (cd);
+    \\draw [->] (no) -- (sc);
+    \\draw [->] (cd) -- (all);
+    \\draw [->] (sc) -- (all);
+}}
+
+\figure {fgr:ambiguous} {Ambiguous combinations} {\tikz {
+
+    \\tikzset\{n/.style=\{circle, minimum size=0.9cm\}\}
+
+    \tikz_symbol {hto hbo vl vr m=- z=2 p=-1.2,0}
+    \tikz_symbol {ht hb vlo vro m=- z=2 p=1.2,0}
+    \tikz_symbol {ht hb vlo vro z=2 p=0,-1.2}
+
+    \\node[n, label=\{right:\m {ht hb vlo vro}\}] at (1.2,0) (r3) \{\};
+    \\node[n, label=\{left:\m {hto hbo vl vr}\}] at (-1.2,0) (l3) \{\};
+
+    \\node[n, label=\{[align=center]below:
+        \m {ht hb vlo vro} \\\\ or \\\\
+        \m {hto hob vl vr}\}] at (0,-1.2) (all) \{\};
+
+    \\draw [->] (l3) -- (all) node [auto=right, midway] \{Shift by curved\};
+    \\draw [->] (r3) -- (all) node [auto=left, midway] \{Shift by curved\};
+}}
+
 \3 {Relations to the existing symbols} {featural_existing}
 
 The use of basic geometric forms, common in many existing writing systems,
@@ -307,7 +353,8 @@ recognizable.
 
 \1 {Comparison with IPA} {featural_comparison}
 
-\figure {Modeling numbers} {
+\figure {fgr:model_numbers} {Modeling numbers} {
+\tikz {
 \symbol_table
     {
         {labial}
@@ -341,5 +388,5 @@ recognizable.
         {lateral_approximant;voiceless}
         {lateral_approximant;voiced}
     }
-}
+}}
 
