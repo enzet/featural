@@ -131,7 +131,7 @@ class LanguageTeX(Language, DefaultTeX):
 
 class LanguageMarkdown(Language, DefaultMarkdown):
     def ipa(self, arg) -> str:
-        return f"{{\\doulos{{{self.parse(arg[0])}}}}}"
+        return self.parse(arg[0])
 
 
 if __name__ == "__main__":
