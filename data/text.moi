@@ -325,15 +325,6 @@ Or Cyrillic (see table \tex_ref {tbl:model_cyrillic}).
         {\symbol {ht vc2}}
     }
 
-\table
-    {tbl:model_myanmar}
-    {Modeling Myanmar symbols}
-    {{Existing symbol} {လ}}
-    {
-        {Proposed system}
-        {\symbol {vlo \\ vro}}
-    }
-
 Several existing symbols cannot be recreated precisely, but can still be
 recognizable.
 
