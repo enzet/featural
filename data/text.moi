@@ -117,18 +117,21 @@ versatile across different contexts and media. The resulting alphabet not only
 provides a systematic representation of phonological features but also enhances
 the usability and accessibility of phonetic transcription.
 
-\1 {Methodology} {featural_methodology}
+\1 {Alphabet} {featural_alphabet}
 
-A program has been developed to generate the entire alphabet based on initial
-settings for each phonological feature. The program uses a set of predefined
-graphical elements corresponding to different phonological features. By
-combining these elements according to the specified features of each phoneme,
-the program produces unique symbols for each sound.
+We divide symbols in the alphabet into several distinctive classes. First class
+is symbols, that are constructed out of horizontal, vertical and diagonal
+elements. The main principle for the symbols in the first class is they are
+two-dimensional: every (or almost every) vertical element can be combined with
+every horizontal element giving unique character.
+
+If we have two vertical elements: vertical left line \symbol {vl} and
+vertical center line \symbol {vc}, and two horizontal elements: horizontal
+center left line \tikz {} and horizontal center right line \tikz {}, we may have
+two combinations, that look similar. One way to avoid this is use lines of the
+full character length.
 
 \2 {Notation} {featural_notation}
-
-The initial settings define the graphical representation for each phonological
-feature.
 
 We use simple notation to encode symbols using graphical elements:
 \list
@@ -158,6 +161,14 @@ modifying them to connect more fluidly. These modifications allow the symbols to
 appear more cohesive and natural, enhancing legibility and making them easier to
 write by hand. We try to make element connections looks similar to what we can
 find in existing writing systems.
+
+\list
+    {
+        Shifting. Modifications: shifting by curved line (\m {sc}).
+    }
+    {
+        Curve lines. Modifications: curve diagonal line (\m {cd}).
+    }
 
 Figure \tex_ref {fgr:modifications} shows how modifications work for symbol
 \m {hto / hbo}.
@@ -359,6 +370,12 @@ recognizable.
     }
 
 \1 {Comparison with IPA} {featural_comparison}
+
+A program has been developed to generate the entire alphabet based on initial
+settings for each phonological feature. The program uses a set of predefined
+graphical elements corresponding to different phonological features. By
+combining these elements according to the specified features of each phoneme,
+the program produces unique symbols for each sound.
 
 \figure {fgr:model_numbers} {Modeling numbers} {
 \tikz {
