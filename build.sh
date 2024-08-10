@@ -3,10 +3,6 @@
 BUILD_DIRECTORY="build"
 OUTPUT_DIRECTORY="out"
 
-# Clear everything.
-rm -rf ${BUILD_DIRECTORY}
-rm -rf ${OUTPUT_DIRECTORY}
-
 # Stop on error.
 set -e
 
