@@ -65,4 +65,25 @@ public:
     void rectangle(Vector point1, Vector point2, std::string settings);
 };
 
+/* Write SVG code of graphical primitives. */
+class SVGPainter : public Painter {
+
+    /* Stream to write TikZ code to. */
+    std::stringstream stream;
+
+public:
+    SVGPainter(std::string path);
+    std::string getString();
+    void end();
+    void line(Vector point1, Vector point2, std::string settings);
+    void curve(
+        Vector point1,
+        Vector point2,
+        Vector point3,
+        Vector point4,
+        std::string settings);
+    void text(Vector center, std::string text, std::string settings);
+    void rectangle(Vector point1, Vector point2, std::string settings);
+};
+
 #endif

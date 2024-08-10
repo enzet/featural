@@ -5,6 +5,8 @@
 #include "geometry.hpp"
 #include "visual.hpp"
 
+// TikZ.
+
 TikzPainter::TikzPainter(std::string path) {
 }
 
@@ -49,4 +51,36 @@ void TikzPainter::rectangle(
     stream << "\\draw[" << settings << "] (" << point1.x << ", " << point1.y
            << ") rectangle (" << point2.x << ", " << point2.y << ");"
            << std::endl;
+}
+
+// SVG.
+
+SVGPainter::SVGPainter(std::string path) {
+}
+
+std::string SVGPainter::getString() {
+    return stream.str();
+}
+
+void SVGPainter::end() {
+}
+
+/* Draw line between two points. */
+void SVGPainter::line(Vector point1, Vector point2, std::string settings) {
+
+    stream << "<line \"" << point1.x << "\" y1=\"" << point1.y << "\" x2=\""
+           << point2.x << "\" y2=\"" << point2.y << "\" />" << std::endl;
+}
+
+/* Draw cubic Bezier curve (with 2 control points). */
+void SVGPainter::curve(
+    Vector point1,
+    Vector point2,
+    Vector point3,
+    Vector point4,
+    std::string settings) {
+
+    stream << "<path d=\"M " << point1.x << " " << point1.y << "C " << point2.x
+           << " " << point2.y << ", " << point3.x << " " << point3.y << ", "
+           << point4.x << " " << point4.y << "\" />" << std::endl;
 }
