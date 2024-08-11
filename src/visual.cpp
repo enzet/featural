@@ -84,3 +84,16 @@ void SVGPainter::curve(
            << " " << point2.y << ", " << point3.x << " " << point3.y << ", "
            << point4.x << " " << point4.y << "\" />" << std::endl;
 }
+
+/* Draw text. */
+void SVGPainter::text(Vector center, std::string text, std::string settings) {
+    stream << "<text x=\"" << center.x << "\" y=\"" << center.y << "\">" << text
+           << "</text>" << std::endl;
+}
+
+/* Draw axes aligned rectangle. */
+void SVGPainter::rectangle(Vector point1, Vector point2, std::string settings) {
+    stream << "<rect x=\"" << point1.x << "\" y=\"" << point1.y << "\" width=\""
+           << (point2.x - point1.x) << "\" height=\"" << (point2.y - point1.x)
+           << "\" />" << std::endl;
+}
