@@ -347,7 +347,9 @@ void Symbol::draw(
         element.draw(painter, style, center, size, elements);
     }
     painter->line(
-        Vector(0, 0), Vector(0, 1.3 * size * style.zoom), "draw=none");
+        Vector(0, 0) + style.position,
+        Vector(0, 1.3 * size * style.zoom) + style.position,
+        "draw=none");
 }
 
 // Convert graphical element text representation into element descriptor.
