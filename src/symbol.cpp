@@ -132,6 +132,8 @@ SymbolStyle::SymbolStyle(std::vector<std::string> descriptions) {
             position = parseVector(value);
         } else if (key == "z") {
             zoom = parseFloat(value);
+        } else if (key == "b") {
+            useBackground = parseBool(value);
         } else if (key == "m") {
             curveDiagonal = parseBool(value);
             shiftByCurved = parseBool(value);
@@ -342,6 +344,13 @@ void Symbol::add(Element element) {
 
 void Symbol::draw(
     Painter* painter, SymbolStyle style, Vector center, float size) {
+
+    if (style.useBackground) {
+        painter->rectangle(
+            Vector(-1, -1) * size * style.zoom + style.position,
+            Vector(1, 1) * size * style.zoom + style.position,
+            "draw, densely dotted");
+    }
 
     for (Element element : elements) {
         element.draw(painter, style, center, size, elements);

@@ -43,6 +43,7 @@ class SymbolStyle {
 public:
     float lineWidth = 0.4f;
     Vector position = Vector(0, 0);
+    bool useBackground = false;
     float zoom = 1.0f;
     bool shiftByCurved = true;
     bool curveDiagonal = true;
