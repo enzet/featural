@@ -73,6 +73,16 @@ class LanguageTeX(Language, DefaultTeX):
         s += "\\end{figure}"
         return s
 
+    def figure_wide(self, arg) -> str:
+        s = "\\begin{figure}[ht]\n"
+        s += "\\noindent\\makebox[\\textwidth]{%\n"
+        s += self.parse(arg[2])
+        s += "}\n"
+        s += f"\\caption{{{self.parse(arg[1])}}}"
+        s += f"\\label{{{arg[0][0]}}}"
+        s += "\\end{figure}"
+        return s
+
     def tex_ref(self, arg) -> str:
         return f"\\ref{{{arg[0][0]}}}"
 

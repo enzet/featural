@@ -433,7 +433,7 @@ graphical elements corresponding to different phonological features. By
 combining these elements according to the specified features of each phoneme,
 the program produces unique symbols for each sound.
 
-\figure {fgr:model_numbers} {Modeling numbers} {
+\figure_wide {fig:ipa_consonants} {Symbols for IPA consonants} {
 \tikz {
 \symbol_table
     {
