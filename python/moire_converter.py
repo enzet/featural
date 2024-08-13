@@ -131,8 +131,8 @@ class LanguageTeX(Language, DefaultTeX):
         return "\\tikz{" + self.tikz_symbol(arg) + "}"
 
     def symbol_table(self, arg) -> str:
-        rows: str = ",".join([x[0] for x in arg[0]])
-        columns: str = ",".join([x[0] for x in arg[1]])
+        rows: str = ",".join([x[0] for x in arg[0] if isinstance(x, list)])
+        columns: str = ",".join([x[0] for x in arg[1] if isinstance(x, list)])
         proc: subprocess.Popen = subprocess.Popen(
             [SYMBOL_GENERATOR_EXECUTABLE, "table", rows, columns],
             stdout=subprocess.PIPE,
