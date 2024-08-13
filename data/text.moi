@@ -170,10 +170,10 @@ find in existing writing systems.
         Curve lines. Modifications: curve diagonal line (\m {cd}).
     }
 
-Figure \tex_ref {fgr:modifications} shows how modifications work for symbol
+Figure \tex_ref {fig:modifications} shows how modifications work for symbol
 \m {hto / hbo}.
 
-\figure {fgr:modifications} {Modifications} {\tikz {
+\figure {fig:modifications} {Modifications} {\tikz {
 
     \\tikzset\{nd/.style=\{circle, minimum size=1cm\}\}
 
@@ -197,7 +197,7 @@ Figure \tex_ref {fgr:modifications} shows how modifications work for symbol
     \\draw [->] (sc) -- (all);
 }}
 
-\figure {fgr:ambiguous} {Ambiguous combinations} {\tikz {
+\figure {fig:ambiguous} {Ambiguous combinations} {\tikz {
 
     \\tikzset\{n/.style=\{circle, minimum size=0.9cm\}\}
 
@@ -216,7 +216,7 @@ Figure \tex_ref {fgr:modifications} shows how modifications work for symbol
     \\draw [->] (r3) -- (all) node [auto=left, midway] \{Shift by curved\};
 }}
 
-\2 {Ambiguity in handwritten form} {featural_ambiguity}
+\2 {Ambiguity in printed and handwritten forms} {featural_ambiguity}
 
 We aim to ensure that the symbols are unambiguous in both printed and
 handwritten forms, making the alphabet robust against the imperfections commonly
@@ -224,7 +224,7 @@ found in handwriting. Additionally, the design allows for non-monospaced
 symbols, indicating that the right and left margins of a symbol are not intended
 to carry any significance.
 
-Figure \tex_ref {fgr:ambiguous_1} shows five symbols constructed out of two
+Figure \tex_ref {fig:ambiguous_1} shows five symbols constructed out of two
 vertical lines. Symbol (1) may not be distinguishable from symbol (2) or (3) in
 handwritten form, since the only difference is the horizontal distance between
 vertical lines, that is hard to make consistent in handwriting. The same is true
@@ -234,7 +234,7 @@ symbol (2) and (3), as well as (4) and (5) will look the same if we do not
 preserve left and right margins around symbols as it done in non-monospaced
 fonts.
 
-\figure {fgr:ambiguous_1} {Ambiguous symbols with only vertical elements} {
+\figure {fig:ambiguous_1} {Ambiguous symbols with only vertical elements} {
 \tikz {
 
     \\tikzset\{n/.style=\{circle, minimum size=0.8cm\}\}
@@ -252,24 +252,30 @@ fonts.
     \\node[n, label=\{right:(5)\}] at (0.5,0) (n5) \{\};
 }}
 
-The same ambiguity emerges when we mix short and long elements.
-
-\figure {fgr:ambiguous_2} {Ambiguous symbols with short and long elements} {
-\tikz {
-    \tikz_symbol {b=+ p=0,0 z=3 w=0.8 vl hc}
-    \tikz_symbol {b=+ p=1,0 z=3 w=0.8 vc hc}
-    \tikz_symbol {b=+ p=2,0 z=3 w=0.8 vl hc}
-}}
-
 Symbols become unambiguous if we add full-length horizontal line at any height
-of a symbol.
+of a symbol. Figure \tex_ref {fig:unambiguous_1} shows how adding central
+horizontal full-length line creates unique graphical element for every symbol,
+making it easily recognizable.
 
-\figure {fgr:unambiguous_1} {Unambiguous} {\tikz {
+\figure {fig:unambiguous_1} {Unambiguous} {\tikz {
     \tikz_symbol {b=+ p=0,0 z=3 w=0.8 vl2 hc}
     \tikz_symbol {b=+ p=1,0 z=3 w=0.8 vl vc hc}
     \tikz_symbol {b=+ p=2,0 z=3 w=0.8 vl hc vr}
     \tikz_symbol {b=+ p=3,0 z=3 w=0.8 hc vc vr}
     \tikz_symbol {b=+ p=4,0 z=3 w=0.8 hc vr2}
+}}
+
+The same ambiguity emerges when we mix short and long elements.
+
+\figure {fig:ambiguous_2} {Symbols with short and long elements} {
+\tikz {
+    \tikz_symbol {b=+ p=0,1 z=3 w=0.8 vl hcl}
+    \tikz_symbol {b=+ p=1,1 z=3 w=0.8 vc hcr}
+    \tikz_symbol {b=+ p=2,1 z=3 w=0.8 vl hc}
+
+    \tikz_symbol {b=+ p=0,0 z=3 w=0.8 vl hb hcl}
+    \tikz_symbol {b=+ p=1,0 z=3 w=0.8 vc hb hcr}
+    \tikz_symbol {b=+ p=2,0 z=3 w=0.8 vl hb hc}
 }}
 
 \2 {Relations to the existing symbols} {featural_existing}
