@@ -304,12 +304,21 @@ void Element::draw(
                 }
             }
         }
-        painter->curve(
-            center + p1 * size,
-            center + p2 * size,
-            center + p3 * size,
-            center + p4 * size,
-            tikzStyle);
+        if (style.isHandwritten) {
+            painter->curve(
+                center + (p1 + Vector(0.05, 0.10)) * size * 0.85,
+                center + (p2 + Vector(0.05, -0.10)) * size * 0.70,
+                center + (p3 + Vector(-0.05, 0.10)) * size * 0.75,
+                center + (p4 + Vector(0.05, 0.10)) * size * 0.80,
+                tikzStyle);
+        } else {
+            painter->curve(
+                center + p1 * size,
+                center + p2 * size,
+                center + p3 * size,
+                center + p4 * size,
+                tikzStyle);
+        }
     }
 }
 

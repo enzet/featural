@@ -47,6 +47,7 @@ public:
     float zoom = 1.0f;
     bool shiftByCurved = true;
     bool curveDiagonal = true;
+    bool isHandwritten = false;
 
     SymbolStyle(std::vector<std::string> description);
 };
