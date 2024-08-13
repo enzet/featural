@@ -32,11 +32,11 @@ Vector Element::getNorm() {
 }
 
 Vector Element::getPoint1() {
-    return getNorm() + direction;
+    return getNorm() + direction * pointOffset1;
 }
 
 Vector Element::getPoint2() {
-    return getNorm() - direction;
+    return getNorm() + direction * pointOffset2;
 }
 
 void Element::add(ElementDescriptor elementDescriptor) {
@@ -66,16 +66,32 @@ void Element::add(ElementDescriptor elementDescriptor) {
         position = 0;
         break;
     case ElementDescriptor::Right:
-        position = 1;
+        if (direction == Vector(0.0f, 1.0f)) { // Vertical.
+            position = 1;
+        } else if (direction == Vector(1.0f, 0.0f)) { // Horizontal.
+            pointOffset1 = 0;
+        }
         break;
     case ElementDescriptor::Left:
-        position = -1;
+        if (direction == Vector(0.0f, 1.0f)) { // Vertical.
+            position = -1;
+        } else if (direction == Vector(1.0f, 0.0f)) { // Horizontal.
+            pointOffset2 = 0;
+        }
         break;
     case ElementDescriptor::Top:
-        position = 1;
+        if (direction == Vector(1.0f, 0.0f)) { // Horizontal.
+            position = 1;
+        } else if (direction == Vector(0.0f, 1.0f)) { // Vertical.
+            pointOffset1 = 0; // TODO: recheck.
+        }
         break;
     case ElementDescriptor::Bottom:
-        position = -1;
+        if (direction == Vector(1.0f, 0.0f)) { // Horizontal.
+            position = -1;
+        } else if (direction == Vector(0.0f, 1.0f)) { // Vertical.
+            pointOffset2 = 0; // TODO: recheck.
+        }
         break;
     case ElementDescriptor::Double:
         isDouble = true;
@@ -153,8 +169,7 @@ void Element::draw(
     Vector step,
     std::vector<Element> elements) {
 
-    Vector a = getNorm();
-    Vector b = direction;
+    Vector norm = getNorm();
 
     // Apply style.
     std::string tikzStyle
@@ -164,22 +179,22 @@ void Element::draw(
 
     if (isCurved) {
 
-        float m = isInwards ? 1 : -1;
+        float curveDirection = isInwards ? 1 : -1;
         if (isInwards) {
-            step = step + a * -CURVE_SIZE;
+            step = step + norm * -CURVE_SIZE;
         }
 
         // Line.
-        Vector start = step + b * (1 - CURVE_SIZE);
-        Vector end = step - b * (1 - CURVE_SIZE);
+        Vector start = step + direction * (1 - CURVE_SIZE);
+        Vector end = step - direction * (1 - CURVE_SIZE);
         painter->line(center + start * size, center + end * size, tikzStyle);
 
         // Curve.
-        Vector p = step + b;
-        Vector p1 = p - b * CURVE_SIZE;
-        Vector p2 = p - b * CURVE_SIZE * (1 - CURVATURE);
-        Vector p3 = p + (a * CURVE_SIZE * (1 - CURVATURE)) * m;
-        Vector p4 = p + (a * CURVE_SIZE) * m;
+        Vector p = step + direction;
+        Vector p1 = p - direction * CURVE_SIZE;
+        Vector p2 = p - direction * CURVE_SIZE * (1 - CURVATURE);
+        Vector p3 = p + (norm * CURVE_SIZE * (1 - CURVATURE)) * curveDirection;
+        Vector p4 = p + (norm * CURVE_SIZE) * curveDirection;
         painter->curve(
             center + p1 * size,
             center + p2 * size,
@@ -188,11 +203,11 @@ void Element::draw(
             tikzStyle);
 
         // Curve.
-        p = step - b;
-        p1 = p + b * CURVE_SIZE;
-        p2 = p + b * CURVE_SIZE * (1 - CURVATURE);
-        p3 = p + (a * CURVE_SIZE * (1 - CURVATURE)) * m;
-        p4 = p + (a * CURVE_SIZE) * m;
+        p = step - direction;
+        p1 = p + direction * CURVE_SIZE;
+        p2 = p + direction * CURVE_SIZE * (1 - CURVATURE);
+        p3 = p + (norm * CURVE_SIZE * (1 - CURVATURE)) * curveDirection;
+        p4 = p + (norm * CURVE_SIZE) * curveDirection;
         painter->curve(
             center + p1 * size,
             center + p2 * size,
@@ -202,12 +217,14 @@ void Element::draw(
 
     } else if (isPointed) {
 
+        // TODO: implement.
+
     } else { // Horizontal, vertical, or diagonal line.
 
-        Vector p1 = step + b; // Start point.
-        Vector p2 = step + b; // Curve point 1.
-        Vector p3 = step - b; // Curve point 2.
-        Vector p4 = step - b; // End point.
+        Vector p1 = step + direction * pointOffset1; // Point 1.
+        Vector p2 = step + direction * pointOffset1; // Curve point 1.
+        Vector p3 = step + direction * pointOffset2; // Curve point 2.
+        Vector p4 = step + direction * pointOffset2; // Point 2.
 
         // Check other elements.
         // TODO: ignore the element itself.
@@ -233,30 +250,30 @@ void Element::draw(
                         p3 = p3 + element.getNorm() * -DOUBLE_SIZE;
                     }
                 } else if (element.getNorm().isGridCodirectedTo(direction)) {
-                    p1 = p1 - direction * DOUBLE_SIZE;
-                    p2 = p2 - direction * DOUBLE_SIZE;
+                    p4 = p4 - direction * DOUBLE_SIZE;
+                    p3 = p3 - direction * DOUBLE_SIZE;
                 } else {
-                    p4 = p4 + direction * DOUBLE_SIZE;
-                    p3 = p3 + direction * DOUBLE_SIZE;
+                    p1 = p1 + direction * DOUBLE_SIZE;
+                    p2 = p2 + direction * DOUBLE_SIZE;
                 }
             }
 
             // Other element is curved.
             if (element.isCurved) {
 
-                // Shift point if element is no the edge, orthogonal to the
-                // curved element, and curved inwards.
+                // Shift point if the element is no the edge, orthogonal to the
+                // curved element, and the curved element is curved inwards.
                 if ((step.x == 1 or step.x == -1 or step.y == 1 or step.y == -1)
                     and style.shiftByCurved
                     and getNorm().isGridParallelTo(element.direction)
                     and not element.isInwards) {
                     // Shift point.
                     if (element.getNorm().isGridCodirectedTo(direction)) {
-                        p1 = p1 - direction * CURVE_SIZE;
-                        p2 = p2 - direction * CURVE_SIZE;
+                        p4 = p4 - direction * CURVE_SIZE;
+                        p3 = p3 - direction * CURVE_SIZE;
                     } else {
-                        p4 = p4 + direction * CURVE_SIZE;
-                        p3 = p3 + direction * CURVE_SIZE;
+                        p1 = p1 + direction * CURVE_SIZE;
+                        p2 = p2 + direction * CURVE_SIZE;
                     }
                 }
 

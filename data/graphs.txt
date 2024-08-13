@@ -3,7 +3,7 @@ voiced                 .
 labial                 vl
 linguolabial           vlo
 alveolar               vc
-dental                 vcsd
+dental                 vcb
 postalveolar           vl vr
 retroflex              vc2
 palatal                vr

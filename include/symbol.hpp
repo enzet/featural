@@ -54,13 +54,23 @@ public:
 /*
  * Symbol element.
  *
- *     p1        p2
- *     *----*----*
+ * Symbol element is a line, a curved line or a double line, that is drawn in a
+ * square limited by [-1, 1] on X axis and by [-1, 1] on Y axis.
  *
+ *  point 1   point 2
+ *     *----*----*
  *          ↑
  *     norm |
  *          *---->
  *           direction
+ *
+ * Offsets:
+ *
+ *     *----*       [-1, 0]
+ *
+ *     *----*----*  [-1, 1]
+ *
+ *          *----*  [0, 1]
  */
 class Element {
 
@@ -68,6 +78,8 @@ class Element {
     Vector indirectedNorm = Vector();
     float position = 0;
     Vector direction = Vector();
+    float pointOffset1 = -1;
+    float pointOffset2 = 1;
 
     bool isDouble = false;
     bool isCurved = false;
