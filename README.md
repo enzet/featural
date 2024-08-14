@@ -12,8 +12,13 @@ Requirements:
 
   * C++20 compiler,
   * CMake version 3.30 or higher,
-  * `xelatex` compiler ([XeTeX](https://tug.org/xetex/)),
-  * [Doulos SIL](https://software.sil.org/doulos/download/) font.
+  * `xelatex` compiler ([XeTeX](https://tug.org/xetex/)).
+
+We include fonts under Open Font License (`fonts` directory):
+
+  * [Doulos SIL](https://software.sil.org/doulos/download/),
+  * [Noto Sans Korean](https://fonts.google.com/noto/specimen/Noto+Sans+KR),
+  * [CMU Serif Roman](https://cm-unicode.sourceforge.io/index.html).
 
 To get a PDF file with the alphabet, run
 
@@ -26,7 +31,6 @@ It will create `build` directory and `out` directory with output PDF file.
 ## Language utility
 
 Language utility has two commands: `table` and `symbol`:
-
 
   *  `table <rows> <columns>`, where `rows` is the list of phoneme parameters separated by `,`. E.g. `table "dental,alveolar" "trill;voiceless,trill;voiced"`. 
   *  `symbol <descriptors>`, where `descriptors` is the list of symbol element descriptors. E.g. `symbol vc hc`. 

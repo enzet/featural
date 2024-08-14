@@ -1,4 +1,4 @@
-from moire.default import Default, DefaultTeX, DefaultMarkdown
+from moire.default import Default, DefaultTeX
 from moire.main import main
 from textwrap import dedent
 import subprocess
@@ -41,9 +41,9 @@ class LanguageTeX(Language, DefaultTeX):
             \\usepackage{tikz}
             \\usepackage{fontspec}
             \\usepackage[left=1.25in,right=1.25in,top=1in,bottom=1in]{geometry}
-            \\setmainfont[Ligatures=TeX]{CMU Serif}
+            \\setmainfont[Ligatures=TeX]{CMU Serif Roman}
             \\newfontface\\doulos{Doulos SIL}
-            \\newfontface\\ko{Noto Sans KR}
+            \\newfontface\\ko{Noto Sans KR Regular}
             \\def\\arraystretch{1.3}
             \\usetikzlibrary{positioning}
             \\begin{document}
@@ -148,11 +148,6 @@ class LanguageTeX(Language, DefaultTeX):
             stdout=subprocess.PIPE,
         )
         return proc.stdout.read().decode()
-
-
-class LanguageMarkdown(Language, DefaultMarkdown):
-    def ipa(self, arg) -> str:
-        return self.parse(arg[0])
 
 
 if __name__ == "__main__":

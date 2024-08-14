@@ -21,8 +21,13 @@ Requirements:
 \list
     {C++20 compiler,}
     {CMake version 3.30 or higher,}
-    {\m {xelatex} compiler (\ref {https://tug.org/xetex/} {XeTeX}),}
-    {\ref {https://software.sil.org/doulos/download/} {Doulos SIL} font.}
+    {\m {xelatex} compiler (\ref {https://tug.org/xetex/} {XeTeX}).}
+
+We include fonts under Open Font License (\m {fonts} directory):
+\list
+    {\ref {https://software.sil.org/doulos/download/} {Doulos SIL},}
+    {\ref {https://fonts.google.com/noto/specimen/Noto+Sans+KR} {Noto Sans Korean},}
+    {\ref {https://cm-unicode.sourceforge.io/index.html} {CMU Serif Roman}.}
 
 To get a PDF file with the alphabet, run
 

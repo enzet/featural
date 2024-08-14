@@ -17,20 +17,21 @@ jobs:
       with:
         source-dir: .
         build-dir: build
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
     - name: Create TeX file
       run: |
         mkdir out
-        build/language > out/ipa.tex
-        cp data/*.tex out/
-    - name: Construct `table.pdf`
-      uses: xu-cheng/latex-action@v3
-      with:
-        working_directory: out
-        root_file: table.tex
-        latexmk_use_xelatex: true
+        python python/moire_converter.py --input data/text.moi --output out/text.tex --format tex
     - name: Construct `text.pdf`
       uses: xu-cheng/latex-action@v3
       with:
         working_directory: out
         root_file: text.tex
         latexmk_use_xelatex: true
+        extra_fonts: |
+          ../fonts/DoulosSIL-Regular.ttf
+          ../fonts/NotoSansKR-Regular.ttf
+          ../fonts/cmunrm.ttf
