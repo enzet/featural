@@ -35,3 +35,8 @@ jobs:
           ../fonts/DoulosSIL-Regular.ttf
           ../fonts/NotoSansKR-Regular.ttf
           ../fonts/cmunrm.ttf
+    - name: Archive code coverage results
+      uses: actions/upload-artifact@v4
+      with:
+        name: text-result
+        path: out/text.pdf
