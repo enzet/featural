@@ -26,6 +26,10 @@ class Language(Default):
         """Korean text symbol."""
         raise NotImplementedError()
 
+    def ru(self, arg) -> str:
+        """Russian text symbol."""
+        raise NotImplementedError()
+
     def symbol(self, arg) -> str:
         raise NotImplementedError()
 
@@ -41,9 +45,9 @@ class LanguageTeX(Language, DefaultTeX):
             \\usepackage{tikz}
             \\usepackage{fontspec}
             \\usepackage[left=1.25in,right=1.25in,top=1in,bottom=1in]{geometry}
-            \\setmainfont[Ligatures=TeX]{CMU Serif Roman}
             \\newfontface\\doulos{Doulos SIL}
             \\newfontface\\ko{Noto Sans KR Regular}
+            \\newfontface\\ru{CMU Serif Roman}
             \\def\\arraystretch{1.3}
             \\usetikzlibrary{positioning}
             \\begin{document}
@@ -128,6 +132,9 @@ class LanguageTeX(Language, DefaultTeX):
 
     def ko(self, arg) -> str:
         return f"{{\\ko{{{self.parse(arg[0])}}}}}"
+
+    def ru(self, arg) -> str:
+        return f"{{\\ru{{{self.parse(arg[0])}}}}}"
 
     def tikz_symbol(self, arg) -> str:
         proc: subprocess.Popen = subprocess.Popen(

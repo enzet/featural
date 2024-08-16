@@ -340,7 +340,15 @@ Or Cyrillic (see table \tex_ref {tbl:model_cyrillic}).
 \table
     {tbl:model_cyrillic}
     {Modeling Cyrillic symbols}
-    {{Existing symbol} {Г} {Ж} {И} {П} {Ш} {Э}}
+    {
+        {Existing symbol}
+        {\ru {Г}}
+        {\ru {Ж}}
+        {\ru {И}}
+        {\ru {П}}
+        {\ru {Ш}}
+        {\ru {Э}}
+    }
     {
         {Proposed system}
         {\symbol {vl ht}}
@@ -420,7 +428,7 @@ recognizable.
 \table
     {tbl:model_other}
     {Modeling other symbols}
-    {{Existing symbol} {A} {M} {Y} {У} {Ф} {Ч}}
+    {{Existing symbol} {A} {M} {Y} {\ru {У}} {\ru {Ф}} {\ru {Ч}}}
     {
         {Proposed system}
         {\symbol {vl hto hc vr}}
