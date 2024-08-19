@@ -472,14 +472,11 @@ the program produces unique symbols for each sound.
         {trill;voiced}
         {tap/flap;voiceless}
         {tap/flap;voiced}
-        {sibilant_fricative;voiceless}
-        {sibilant_fricative;voiced}
-        {non-sibilant_fricative;voiceless}
-        {non-sibilant_fricative;voiced}
+        {fricative;voiceless}
+        {fricative;voiced}
         {lateral_fricative;voiceless}
         {lateral_fricative;voiced}
         {approximant;voiced}
-        {lateral_approximant;voiceless}
         {lateral_approximant;voiced}
     }
 }}
