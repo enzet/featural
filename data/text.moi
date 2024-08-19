@@ -479,5 +479,16 @@ the program produces unique symbols for each sound.
         {approximant;voiced}
         {lateral_approximant;voiced}
     }
+    {
+        p b t d ʈ ɖ c ɟ k ɡ q ɢ ʔ
+        m ɱ n ɳ ɲ ŋ ɴ
+        ʙ r ʀ
+        ⱱ ɾ ɽ
+        ɸ f θ s ʃ ʂ ç x χ ħ h
+        β v ð z ʒ ʐ ʝ ɣ ʁ ʕ ɦ
+        ɬ ɮ
+        ʋ ɹ ɻ j ɰ
+        l ɭ ʎ ʟ
+    }
 }}
 

@@ -484,6 +484,7 @@ void drawTable(
     Painter* painter,
     std::vector<std::string> columns,
     std::vector<std::string> rows,
+    std::vector<std::string> filter,
     IpaSymbols* ipaSymbols,
     std::unordered_map<std::string, std::vector<std::string>> graphs) {
 
@@ -525,6 +526,13 @@ void drawTable(
             std::vector<std::string> parametersVector = split(parameters, ';');
             std::string key = sortParameters(parameters);
             std::string ipaSymbol = ipaSymbols->findSymbol(key);
+
+            if (std::find(filter.begin(), filter.end(), ipaSymbol)
+                == filter.end()) {
+
+                x += xStep;
+                continue;
+            }
 
             std::vector<std::string> descriptors;
 

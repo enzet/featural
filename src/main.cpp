@@ -37,7 +37,10 @@ IpaSymbols* parseTables(const std::string& path) {
 }
 
 void drawTable(
-    std::vector<std::string> rows, std::vector<std::string> columns) {
+    std::vector<std::string> rows,
+    std::vector<std::string> columns,
+    std::vector<std::string> filter) {
+
     std::unordered_map<std::string, std::vector<std::string>> graphs
         = parseGraphs("data/graphs.txt");
     IpaSymbols* ipaSymbols = parseTables("data/consonants.txt");
@@ -45,6 +48,7 @@ void drawTable(
         new TikzPainter("out/ipa_table.tex"),
         rows,
         columns,
+        filter,
         ipaSymbols,
         graphs);
 }
@@ -64,7 +68,7 @@ int main(int argc, char** argv) {
 
     try {
         if (std::string(argv[1]) == "table") {
-            if (argc != 4) {
+            if (argc != 5) {
                 std::cerr << "`table` command should have exactly two "
                              "arguments: rows and columns."
                           << std::endl;
@@ -72,8 +76,9 @@ int main(int argc, char** argv) {
             }
             std::vector<std::string> rows = split(argv[2], ',');
             std::vector<std::string> columns = split(argv[3], ',');
+            std::vector<std::string> filter = split(argv[4], ',');
 
-            drawTable(rows, columns);
+            drawTable(rows, columns, filter);
 
         } else if (std::string(argv[1]) == "symbol") {
             std::vector<std::string> parameters;

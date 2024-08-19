@@ -189,10 +189,16 @@ public:
 
 std::string parametersToTex(std::string parameters);
 
+/*
+ * Draw phonetic table.
+ *
+ * Rows ans columns contain phonological characteristics.
+ */
 void drawTable(
     Painter* painter,
     std::vector<std::string> columns,
     std::vector<std::string> rows,
+    std::vector<std::string> filter,
     IpaSymbols* ipaSymbols,
     std::unordered_map<std::string, std::vector<std::string>> graphs);
 

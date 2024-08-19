@@ -150,8 +150,11 @@ class LanguageTeX(Language, DefaultTeX):
     def symbol_table(self, arg) -> str:
         rows: str = ",".join([x[0] for x in arg[0] if isinstance(x, list)])
         columns: str = ",".join([x[0] for x in arg[1] if isinstance(x, list)])
+        filter_: str = ""
+        if len(arg) > 2:
+            filter_ = arg[2][0].strip().replace("\n", ",").replace(" ", ",")
         proc: subprocess.Popen = subprocess.Popen(
-            [SYMBOL_GENERATOR_EXECUTABLE, "table", rows, columns],
+            [SYMBOL_GENERATOR_EXECUTABLE, "table", rows, columns, filter_],
             stdout=subprocess.PIPE,
         )
         return proc.stdout.read().decode()
