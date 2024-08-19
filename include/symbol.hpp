@@ -6,7 +6,12 @@
 
 #include "visual.hpp"
 
-/* Describes a graphical element: how and where to draw it. */
+/*
+ * Describes a graphical element of a symbol.
+ *
+ * Graphical element is a horizontal, vertical or diagonal line, which can be
+ * a simple line, a curved line, a polyline, can be double or short.
+ */
 enum class ElementDescriptor {
 
     // Direction.
@@ -41,7 +46,7 @@ std::string sortParameters(std::string parameters);
 class SymbolStyle {
 
 public:
-    float lineWidth = 0.4f;
+    float lineWidth = 0.6f;
     Vector position = Vector(0, 0);
     bool useBackground = false;
     float zoom = 1.0f;

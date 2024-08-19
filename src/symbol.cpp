@@ -332,12 +332,13 @@ void Element::draw(
     float size,
     std::vector<Element> elements) {
 
-    if (this->isDouble and position == 0) {
-        draw(painter, style, center, size, getNorm() * 0.3f, elements);
-        draw(painter, style, center, size, getNorm() * -1 * 0.3f, elements);
+    if (isDouble and position == 0) {
+        draw(painter, style, center, size, indirectedNorm * 0.4f, elements);
+        draw(
+            painter, style, center, size, indirectedNorm * -1 * 0.4f, elements);
     } else {
         draw(painter, style, center, size, getNorm() * 1.0f, elements);
-        if (this->isDouble) {
+        if (isDouble) {
             draw(
                 painter,
                 style,
