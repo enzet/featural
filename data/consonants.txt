@@ -11,8 +11,8 @@ sibilant_fricative;voiceless     =  =   =   -   s   ʃ   ʂ   ɕ   =   =   =  = 
 sibilant_fricative;voiced        =  =   =   -   z   ʒ   ʐ   ʑ   =   =   =  =  zʲ
 non-sibilant_fricative;voiceless ɸ  f   θ̼   θ   θ̠   ɹ̠̊˔  ɻ̊˔  ç   x   χ   ħ  h  -
 non-sibilant_fricative;voiced    β  v   ð̼   ð   ð̠   ɹ̠˔  ɻ˔  ʝ   ɣ   ʁ   ʕ  ɦ  -
-fricative;voiceless              ɸ  f   θ̼   θ   s   ʃ   ʂ   ɕ   x   χ   ħ  h  -
-fricative;voiced                 β  v   ð̼   ð   z   ʒ   ʐ   ʑ   ɣ   ʁ   ʕ  ɦ  -
+fricative;voiceless              ɸ  f   θ̼   θ   s   ʃ   ʂ   ç   x   χ   ħ  h  -
+fricative;voiced                 β  v   ð̼   ð   z   ʒ   ʐ   ʝ   ɣ   ʁ   ʕ  ɦ  -
 approximant;voiced               -  ʋ   -   -   ɹ   ɹ̠   ɻ   j   ɰ   -   -  ʔ̞  ɹʲ
 tap/flap;voiceless               -  -   -   -   ɾ̥   -   ɽ̊   -   =   -   -  =  -
 tap/flap;voiced                  ⱱ̟  ⱱ   ɾ̼   -   ɾ   -   ɽ   -   =   ɢ̆   ʡ̆  =  ɾʲ
