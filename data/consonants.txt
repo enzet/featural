@@ -1,6 +1,6 @@
 labial labial;dental linguolabial dental alveolar postalveolar retroflex palatal velar uvular pharyngeal glottal alveolar;palatal2
 nasal;voiceless                  m̥  -   -   -   n̥   -   ɳ̊   ɲ̊   ŋ̊   ɴ̥   =  =  -
-nasal;voiced                     m  ɱ   n̼   n̪   n   -   ɳ   ɲ;ȵ ŋ   ɴ   =  =  mʲ
+nasal;voiced                     m  ɱ   n̼   n̪   n   -   ɳ   ɲ   ŋ   ɴ   =  =  mʲ
 plosive;voiceless                p  p̪   t̼   t̪   t   -   ʈ   c   k   q   ʡ  ʔ  tʲ;ȶ
 plosive;voiced                   b  b̪   d̼   d̪   d   -   ɖ   ɟ   ɡ   ɢ   =  =  dʲ
 sibilant_affricate;voiceless     =  =   =   -   ts  t̠ʃ  tʂ  tɕ  =   =   =  =  -
